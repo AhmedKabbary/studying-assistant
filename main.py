@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
     def adjust_to_side(self, app: QApplication):
         w, h = 400, 600
         available_geometry = app.primaryScreen().availableGeometry()
-        self.setGeometry(available_geometry.width() - (w/2), available_geometry.height() - (h/2), w, h)
+        self.setGeometry(int(available_geometry.width() - (w)), int(available_geometry.height() - (h)), w, h)
 
     def setup_content(self):
         page = None
@@ -68,6 +68,7 @@ window = MainWindow(app)
 window.show()
 
 tray = QSystemTrayIcon()
+tray.setIcon(QIcon('icons/minimize.svg'))
 tray.setVisible(True)
 
 menu = QMenu()
