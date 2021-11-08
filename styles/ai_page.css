@@ -1,0 +1,11 @@
+QLineEdit#input_field {
+    padding: 8px;
+    border-radius: 5;
+    background-color: #393E46;
+}
+
+QPushButton#answer_btn {
+    border: none;
+    border-radius: 5;
+    background-color: #188BDB;
+}

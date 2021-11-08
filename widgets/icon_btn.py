@@ -1,6 +1,6 @@
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QPushButton
+from PyQt6.QtGui import QColor, QIcon
+from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QPushButton
 
 
 class IconButton(QPushButton):
@@ -17,9 +17,10 @@ class IconButton(QPushButton):
             border-radius: 5;
             background-color: {self.primaryColor};
         """)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.setup_shadow()
 
     def enterEvent(self, event):
-        self.setCursor(Qt.CursorShape.PointingHandCursor)
         self.setStyleSheet(f"""
             border-radius: 5;
             background-color: {self.secondaryColor};
@@ -30,3 +31,12 @@ class IconButton(QPushButton):
             border-radius: 5;
             background-color: {self.primaryColor};
         """)
+
+    def setup_shadow(self):
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setOffset(0, 2)
+        shadow.setBlurRadius(4)
+        shadow_color = QColor('black')
+        shadow_color.setAlpha(65)
+        shadow.setColor(shadow_color)
+        self.setGraphicsEffect(shadow)

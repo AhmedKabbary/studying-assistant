@@ -1,0 +1,17 @@
+QFrame#root {
+    border: 2px dashed #646464;
+    border-radius: 5;
+}
+
+QPushButton {
+    border: none;
+    background-color: transparent;
+}
+
+QPushButton#browse {
+    color: #188BDB;
+}
+
+QLabel {
+    color: #EEEEEE;
+}

@@ -8,7 +8,12 @@ class LoginPage(QWidget):
         super().__init__(*args, **kwargs)
         self.setWindowTitle('Login')
         self.window().setStyleSheet('background-color: #232931')
+
+        with open('styles/login_page.css') as f:
+            css = f.read()
+            self.setStyleSheet(css)
+
         v_layout = QVBoxLayout(self)
         lbl = QLabel('Login')
-        lbl.setStyleSheet("color: white")
+        lbl.setObjectName('hello_world')
         v_layout.addWidget(lbl, alignment=Qt.AlignmentFlag.AlignCenter)
