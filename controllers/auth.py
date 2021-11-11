@@ -3,7 +3,7 @@ def is_first_time():
 
 
 def get_current_user():
-    return {}
+    return None
 
 
 def register():
