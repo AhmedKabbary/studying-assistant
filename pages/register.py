@@ -17,18 +17,18 @@ class RegisterPage(QWidget):
         
         frame = QFrame()
         frame.setFixedSize(300, 50)
-        frame.setObjectName('root')
+        frame.setObjectName('root2')
 
         h_layout = QHBoxLayout(frame)
         h_layout.setSpacing(15)
 
         btn = QPushButton()
-        btn.setObjectName('btn')
+        btn.setObjectName('btn2')
         btn.setIcon(QIcon('icons/book.svg'))
         h_layout.addWidget(btn)
         
         input = QLineEdit()
-        input.setObjectName('input')
+        input.setObjectName('input2')
         input.setPlaceholderText('Name')
         h_layout.addWidget(input)
 
