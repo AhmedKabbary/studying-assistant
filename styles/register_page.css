@@ -1,15 +1,15 @@
-QFrame#root2{
+QFrame#root{
     background-color:#393E46;
     border-radius: 10;
 }
 
-QLineEdit#input2 {
+QLineEdit#input {
     border: none;
     color: #EEEEEE;
     background-color: transparent;
 }
 
-QPushButton#btn2 {
+QPushButton#btn {
     border: none;
     background-color: transparent;
 }
