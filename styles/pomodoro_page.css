@@ -1,5 +1,12 @@
-QLabel#hello_world {
-    color: #EEEEEE;
-    font-size: 16px;
-    font-weight: bold;
+QPushButton {
+  border-radius: 25px;
+  background-color: #188bdb;
+  font-size: 18px;
+  font-weight: bold;  
+}
+
+QLabel {
+  background-color: #17191d;
+  font-size: 35px;
+  font-weight: bold;  
 }
