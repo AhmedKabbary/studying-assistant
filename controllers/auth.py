@@ -1,5 +1,5 @@
 def is_first_time():
-    return True
+    return False
 
 
 def get_current_user():
