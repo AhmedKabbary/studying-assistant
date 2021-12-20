@@ -2,25 +2,31 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 
-
-class pomo_timer(QWidget):
+class pomo_timer(QFrame):
     def __init__(self):
         super().__init__()
-
-        self.c = 0
-        self.count = 60
-        self.count2 = 24
-
+        self.setObjectName("f")
+        self.setFixedSize(190,190)
         self.timer = QTimer(self)
-        self.timer.timeout.connect(self.min_25)
-        self.timer
-        self.value = 300
-        self.value2 = 60
-
-        self.lbl = QLabel("25:00", self)
-        self.lbl.move(150, 70)
+        self.timer.timeout.connect(self.min_30)
+        self.timer_reset = QTimer(self)
+        self.lbl = QLabel(self)
+        self.lbl.move(50, 55)
         self.lbl.setFixedSize(95, 80)
+        self.set_values()
+        self.set_text()
 
+    def set_text(self):
+        text = str(self.minutes).zfill(2)+":"+str(self.seconds).zfill(2)
+        self.lbl.setText(text)
+
+    def set_values(self):
+        self.seconds = 0
+        self.minutes = 25
+        self.work_value = 300
+        self.rest_value = 60
+        self.count = 0
+        self.set_text()
 
     def display(self):
         if self.timer.isActive():
@@ -29,78 +35,79 @@ class pomo_timer(QWidget):
             self.timer.start(1000)
 
     def replay(self):
-        self.count = 60
-        self.count2 = 24
-        self.lbl.setText("25:00")
-        self.value = 300
-        self.value2 = 60
-        self.c = 0
-        self.repaint()
-        self.timer.start(1000)
-
-    def stop(self):
-        self.count = 60
-        self.count2 = 24
-        self.lbl.setText("25:00")
-        self.value = 300
-        self.value2 = 60
-        self.c = 0
-        self.repaint()
         self.timer.stop()
+        self.timer_reset.timeout.connect(self.replay_reset)
+        self.timer_reset.start(1)
         
-    def min_25(self):
-        self.count -= 1
-        if self.count == -1:
-            self.count = 59
-            self.count2 -= 1
-            if self.count2 == -1 and self.c == 0:
-               self.count = 0
-               self.count2 = 5
-               self.c = 1
-        elif self.count == 0 and self.count2 == 0 and self.c == 1:
-            self.value2 = 0
+    def stop(self):
+        if self.work_value < 300:
+           self.timer.stop()
+           self.timer_reset.timeout.connect(self.stop_reset)
+           self.timer_reset.start(1)
+        
+    def reset(self):
+        if self.rest_value < 60:
+            self.rest_value += 0.2
+            self.repaint()
+        elif self.work_value < 300:
+            self.work_value += 0.2
+            self.repaint()
+        
+    def replay_reset(self):
+        self.reset()
+        if self.work_value == 300:
+            self.set_values()
+            self.timer_reset.stop()
+            self.timer_reset.disconnect()
+            self.timer.start(1000)
+
+    def stop_reset(self):
+        self.reset()
+        if self.work_value == 300:
+            self.set_values()
+            self.timer_reset.stop()
+            self.timer_reset.disconnect()
+
+    def min_30(self):
+        self.seconds -= 1
+        if self.seconds == -1:
+            self.seconds = 59
+            self.minutes -= 1
+            if self.minutes == -1 and self.count == 0:
+               self.seconds = 0
+               self.minutes = 5
+               self.count = 1
+        elif self.seconds == 0 and self.minutes == 0 and self.count == 1:
+            self.rest_value = 0
             self.repaint()
             self.timer.stop()
-            
-        text = str(self.count2).zfill(2)+":"+str(self.count).zfill(2)
-        self.lbl.setText(text)
-        
-        if self.c == 0:
-           self.value -= 0.2
+        self.set_text()
+        if self.count == 0:
+           self.work_value -= 0.2
            self.repaint()
-        elif self.c == 1 and self.value2 > 0.21:
-           self.value2 -= 0.2
+        elif self.count == 1 and self.rest_value > 0.21:
+           self.rest_value -= 0.2
            self.repaint()
-         
     
     def paintEvent(self, e):
         cg = QConicalGradient()
         cg.setCenter(QPointF(self.rect().center()))
-        cg.setAngle(270)
+        cg.setAngle(250)
         cg.setColorAt(0.3, QColor(197, 0, 0))
         cg.setColorAt(1, QColor(255, 230, 0))
         
-
         cg2 = QConicalGradient()
         cg2.setCenter(QPointF(self.rect().center()))
         cg2.setAngle(120)
         cg2.setColorAt(0.3, QColor(0, 70, 0))
         cg2.setColorAt(0.7, QColor(0, 255, 0))
 
-        back_circle = QPainter(self)
-        back_circle.setPen(Qt.PenStyle.NoPen)
-        back_circle.setBrush(QColor(23, 25, 29))
-        back_circle.setRenderHint(QPainter.RenderHint.Antialiasing)
-        back_circle.drawEllipse(100, 15, 190, 190)
-
         painter = QPainter(self)
-        painter.setPen(
-            QPen(QBrush(cg), 17, Qt.PenStyle.SolidLine, Qt.PenCapStyle.RoundCap))
+        painter.setPen(QPen(QBrush(cg), 17, Qt.PenStyle.SolidLine, Qt.PenCapStyle.RoundCap))
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.drawArc(QRect(115, 30, 160, 160), 300*16, self.value*16)
+        painter.drawArc(QRect(15, 15, 160, 160), 300*16, self.work_value*16)
 
         painter2 = QPainter(self)
-        painter2.setPen(
-            QPen(QBrush(cg2), 17,Qt.PenStyle.SolidLine, Qt.PenCapStyle.RoundCap))
+        painter2.setPen(QPen(QBrush(cg2), 17,Qt.PenStyle.SolidLine, Qt.PenCapStyle.RoundCap))
         painter2.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter2.drawArc(QRect(115, 30, 160, 160), 240*16, self.value2*16)
+        painter2.drawArc(QRect(15, 15, 160, 160), 240*16, self.rest_value*16)
