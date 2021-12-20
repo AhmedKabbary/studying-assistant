@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QFrame, QHBoxLayout, QLineEdit, QPushButton
 
 
 class InputField(QFrame):
-    def __init__(self, placeholder, is_password):
+    def __init__(self, placeholder, is_password,icon):
         super().__init__()
 
         self.setFixedSize(300, 50)
@@ -14,7 +14,7 @@ class InputField(QFrame):
 
         btn = QPushButton()
         btn.setObjectName('btn')
-        btn.setIcon(QIcon('icons/book.svg'))
+        btn.setIcon(QIcon(icon))
         h_layout.addWidget(btn)
         
         input = QLineEdit()

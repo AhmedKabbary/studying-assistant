@@ -24,10 +24,10 @@ class LoginPage(QWidget):
         lbl2.setObjectName('title2')
         v_layout.addWidget(lbl2, alignment=Qt.AlignmentFlag.AlignLeft)
 
-        email = InputField('Email', False)
+        email = InputField('Email', False,"icons/email.svg")
         v_layout.addWidget(email, alignment=Qt.AlignmentFlag.AlignCenter)
 
-        password = InputField('Password', True)
+        password = InputField('Password', True,"icons/lock.svg")
         v_layout.addWidget(password, alignment=Qt.AlignmentFlag.AlignCenter)
 
         button=QPushButton("Login")

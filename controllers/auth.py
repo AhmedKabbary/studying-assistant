@@ -1,9 +1,9 @@
 def is_first_time():
-    return False
+    return True
 
 
 def get_current_user():
-    return {}
+    return None
 
 
 def register():

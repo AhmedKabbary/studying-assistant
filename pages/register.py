@@ -17,24 +17,25 @@ class RegisterPage(QWidget):
 
         v_layout = QVBoxLayout(self)
 
-        name = InputField('Name', False)
+        name = InputField('Name', False,"icons/person.svg")
         v_layout.addWidget(name, alignment=Qt.AlignmentFlag.AlignCenter)
 
-        email = InputField('Email', False)
+        email = InputField('Email', False,"icons/email.svg")
         v_layout.addWidget(email, alignment=Qt.AlignmentFlag.AlignCenter)
 
-        phone = InputField('Phone', False)
+        phone = InputField('Phone', False,"icons/phone.svg")
         v_layout.addWidget(phone, alignment=Qt.AlignmentFlag.AlignCenter)
 
-        password = InputField('Password', True)
+        password = InputField('Password', True,"icons/lock.svg")
         v_layout.addWidget(password, alignment=Qt.AlignmentFlag.AlignCenter)
 
-        password2 = InputField('Confirm Password', True)
+        password2 = InputField('Confirm Password', True,"icons/lock.svg")
         v_layout.addWidget(password2, alignment=Qt.AlignmentFlag.AlignCenter)
 
         button=QPushButton("Register")
         button.setFixedSize(200,50)
         button.setObjectName('register')
+        button.clicked.connect(self.register)
         v_layout.addWidget(button, alignment=Qt.AlignmentFlag.AlignCenter)
 
         b=QWidget()
@@ -46,3 +47,6 @@ class RegisterPage(QWidget):
         c2.setObjectName('down2')
         ho_lay.addWidget(c2, alignment=Qt.AlignmentFlag.AlignCenter)
         v_layout.addWidget(b, alignment=Qt.AlignmentFlag.AlignCenter)
+    def register(self):
+        print("beshr")
+
