@@ -46,6 +46,7 @@ QFrame#line {
 }
 
 QLabel#page_button_caption {
+    color: #EEEEEE;
     font-size: 14px;
     font-weight: bold;
 }

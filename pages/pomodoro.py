@@ -37,7 +37,7 @@ class PomodorosPage(QWidget):
         self.btn_addpomo.clicked.connect(self.add_tasks)
         self.btn_addpomo.setObjectName('b')
         self.btn_addpomo.setFixedSize(28,28)
-        self.btn_addpomo.setIcon(QIcon('icons\dadd.svg'))
+        self.btn_addpomo.setIcon(QIcon('icons/add.svg'))
         self.btn_addpomo.setIconSize(QSize(22,22))
         self.btn_addpomo.setCursor((Qt.CursorShape.PointingHandCursor))
         hbox_lb.addWidget(self.label_pomos)
@@ -64,15 +64,15 @@ class PomodorosPage(QWidget):
         self.btn_playpause.setText('PLAY')
         self.btn_playpause.setFixedSize(150,50)
         self.btn_playpause.setCheckable(True)
-        self.btn_playpause.setIcon(QIcon('icons\play.svg'))
+        self.btn_playpause.setIcon(QIcon('icons/play.svg'))
         self.btn_playpause.clicked.connect(self.playpause)
         self.btn_playpause.clicked.connect(po.display)
         self.btn_stop = button()
-        self.btn_stop.setIcon(QIcon('icons\stop.svg'))
+        self.btn_stop.setIcon(QIcon('icons/stop.svg'))
         self.btn_stop.clicked.connect(po.stop)
         self.btn_stop.clicked.connect(self.spp)
         self.btn_replay = button()
-        self.btn_replay.setIcon(QIcon('icons\ereplay.svg'))
+        self.btn_replay.setIcon(QIcon('icons/replay.svg'))
         self.btn_replay.clicked.connect(po.replay)
         self.btn_replay.clicked.connect(self.rpp)
         hbox.addStretch()
@@ -101,17 +101,17 @@ class PomodorosPage(QWidget):
     def playpause(self, checked):
         if checked:
             self.btn_playpause.setText('PAUSE')
-            self.btn_playpause.setIcon(QIcon('icons\pause.svg'))
+            self.btn_playpause.setIcon(QIcon('icons/pause.svg'))
         else:
             self.btn_playpause.setText('PLAY')
-            self.btn_playpause.setIcon(QIcon('icons\play.svg'))
+            self.btn_playpause.setIcon(QIcon('icons/play.svg'))
 
     def rpp(self):
         self.btn_playpause.setText('PAUSE')
-        self.btn_playpause.setIcon(QIcon('icons\pause.svg'))
+        self.btn_playpause.setIcon(QIcon('icons/pause.svg'))
         self.btn_playpause.setChecked(True)
         
     def spp(self):
         self.btn_playpause.setText('PLAY')
-        self.btn_playpause.setIcon(QIcon('icons\play.svg'))
+        self.btn_playpause.setIcon(QIcon('icons/play.svg'))
         self.btn_playpause.setChecked(False)

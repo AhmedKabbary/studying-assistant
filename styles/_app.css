@@ -1,3 +1,20 @@
-QWidget {
-    color: #EEEEEE;
+QScrollBar:vertical {
+    width: 10px;
+    border: none;
+    background-color: transparent;
+}
+
+QScrollBar::handle:vertical {
+    border: none;
+    border-radius: 5;
+    min-height: 10px;
+    background-color: #393E46;
+}
+
+QScrollBar::add-line:vertical {
+    background: none;
+}
+
+QScrollBar::sub-line:vertical {
+    background: none;
 }
