@@ -1,11 +1,32 @@
+QLabel#name {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QLabel#email {
+    font-size: 14px;
+    color: #A9A9A9;
+}
+
+QLabel#role {
+    font-size: 14px;
+    color: #A9A9A9;
+}
+
 QFrame#bottom_container {
     background-color: #232931;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
 }
 
+QFrame#line {
+    background-color: #393E46;
+}
+
 QPushButton {
     border: none;
+    background-color: transparent;
 }
 
 QPushButton#page_button {
@@ -18,10 +39,6 @@ QPushButton#page_button {
 
 QPushButton#page_button:hover {
     border: 1px solid #00ADB5;
-}
-
-QFrame#line {
-    background-color: #393E46;
 }
 
 QLabel#page_button_caption {

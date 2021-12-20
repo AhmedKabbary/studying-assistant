@@ -14,23 +14,17 @@ class IconButton(QPushButton):
         self.setFixedSize(20, 20)
         self.setIconSize(QSize(15, 15))
         self.setStyleSheet(f"""
-            border-radius: 5;
-            background-color: {self.primaryColor};
+            QPushButton {{
+                border-radius: 5;
+                background-color: {self.primaryColor};
+            }}
+
+            QPushButton::hover {{
+                background-color: {self.secondaryColor};
+            }}
         """)
         self.setCursor(Qt.CursorShape.PointingHandCursor)
         self.setup_shadow()
-
-    def enterEvent(self, event):
-        self.setStyleSheet(f"""
-            border-radius: 5;
-            background-color: {self.secondaryColor};
-        """)
-
-    def leaveEvent(self, event):
-        self.setStyleSheet(f"""
-            border-radius: 5;
-            background-color: {self.primaryColor};
-        """)
 
     def setup_shadow(self):
         shadow = QGraphicsDropShadowEffect()

@@ -6,6 +6,7 @@ QLineEdit#input_field {
 
 QPushButton#answer_btn {
     border: none;
+    color: white;
     border-radius: 5;
     background-color: #188BDB;
 }

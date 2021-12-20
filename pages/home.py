@@ -1,7 +1,9 @@
-from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QFrame, QGridLayout, QVBoxLayout, QWidget
-from widgets.home_btn import HomeButton
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import (QFrame, QGridLayout, QHBoxLayout, QLabel, QVBoxLayout, QWidget)
+from widgets.home_btn import HomeButton
+from widgets.icon_btn import IconButton
+from widgets.image import ImageWidget
 from pages import *
 
 
@@ -15,20 +17,55 @@ class HomePage(QWidget):
             css = f.read()
             self.setStyleSheet(css)
 
-        v_layout = QVBoxLayout(self)
-        v_layout.setSpacing(0)
-        v_layout.setContentsMargins(0, 0, 0, 0)
+        self.root_layout = QVBoxLayout(self)
+        self.root_layout.setSpacing(0)
+        self.root_layout.setContentsMargins(0, 0, 0, 0)
 
-        frame1 = QFrame()
-        frame1.setFixedWidth(self.parentWidget().width())
-        v_layout.addWidget(frame1, alignment=Qt.AlignmentFlag.AlignCenter)
+        self.setup_profile()
+        self.setup_bottom_sheet()
 
-        frame2 = QFrame()
-        frame2.setObjectName('bottom_container')
-        frame2.setFixedSize(self.parentWidget().width(), 320)
-        v_layout.addWidget(frame2, alignment=Qt.AlignmentFlag.AlignBottom)
+    def setup_profile(self):
+        profile_root = QWidget()
+        profile_root.setFixedWidth(self.parentWidget().width())
+        self.root_layout.addWidget(profile_root, alignment=Qt.AlignmentFlag.AlignCenter)
 
-        g_layout = QGridLayout(frame2)
+        v_layout = QVBoxLayout(profile_root)
+        v_layout.setSpacing(8)
+        v_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+
+        image = ImageWidget(100, 100, 'pic.jpg', 20)
+        v_layout.addWidget(image, alignment=Qt.AlignmentFlag.AlignHCenter)
+
+        v_layout.addSpacing(16)
+
+        w1 = QWidget()
+        h_layout = QHBoxLayout(w1)
+        h_layout.setContentsMargins(0, 0, 0, 0)
+        h_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        name = QLabel('Ahmed Kabbary')
+        name.setObjectName('name')
+        h_layout.addWidget(name)
+        h_layout.addSpacing(8)
+        edit_btn = IconButton(QIcon('icons/edit.svg'), '#188BDB', '#185ADB')
+        h_layout.addWidget(edit_btn)
+        v_layout.addWidget(w1, alignment=Qt.AlignmentFlag.AlignHCenter)
+
+        email = QLabel('ahmed@example.com')
+        email.setObjectName('email')
+        v_layout.addWidget(email, alignment=Qt.AlignmentFlag.AlignHCenter)
+
+        role = QLabel('admin')
+        role.setObjectName('role')
+        v_layout.addWidget(role, alignment=Qt.AlignmentFlag.AlignHCenter)
+
+    def setup_bottom_sheet(self):
+        frame = QFrame()
+        frame.setObjectName('bottom_container')
+        frame.setFixedSize(self.parentWidget().width(), 320)
+        self.root_layout.addWidget(frame, alignment=Qt.AlignmentFlag.AlignBottom)
+
+        g_layout = QGridLayout(frame)
         g_layout.setContentsMargins(25, 10, 25, 25)
         g_layout.setSpacing(25)
         g_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)

@@ -1,3 +1,4 @@
+import db
 import sys
 from typing import Type
 from pages import *
@@ -87,5 +88,7 @@ quit.triggered.connect(app.quit)
 menu.addAction(quit)
 
 tray.setContextMenu(menu)
+
+db.init()
 
 sys.exit(app.exec())
