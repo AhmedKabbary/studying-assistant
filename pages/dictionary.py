@@ -19,7 +19,6 @@ class DictionaryPage(QWidget):
         
         scroll=QScrollArea()
         scroll.setFixedSize(350, 400)
-        scroll.verticalScrollBar().hide()
         scroll.horizontalScrollBar().hide()
         scroll.setStyleSheet('border: none;')
 
@@ -58,8 +57,15 @@ class DictionaryPage(QWidget):
         d.exec()
 
     def word_added(self, word, difficulty):
+        #insert in database
+        import db
+        #db.db.execute("INSERT INTO DICTIONARY(ID, WORD, DIFFICULTY) VALUES ()" )
+        db.db.commit()
         self.list.append((word, difficulty))
-        self.show_grid()
+        r = ((len(self.list)-1) // 2)
+        c = 0 if ((len(self.list)-1) % 2 == 0) else 1
+        self.grid_layout.addWidget(WordWidget(word, difficulty), r, c)
+        
 
 
 class InputWordDialog(QDialog):
@@ -72,6 +78,7 @@ class InputWordDialog(QDialog):
         self.setStyleSheet("""
             QDialog {
                 background-color: #232931;
+            
             }
 
             QLineEdit {
@@ -84,6 +91,7 @@ class InputWordDialog(QDialog):
             QGroupBox {
                 border: 1px solid #646464;
                 border-radius: 5;
+                color : #EEEEEE;
             }
 
             QPushButton {
@@ -92,6 +100,13 @@ class InputWordDialog(QDialog):
                 font-size: 20;
                 font-weight: bold;
                 background-color: #393E46;
+                color : #EEEEEE;
+            }
+            QRadioButton {
+                color:#EEEEEE;
+            }
+            QLineEdit {
+                color: #EEEEEE;
             }
         """)
         
