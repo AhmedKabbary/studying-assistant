@@ -1,18 +1,3 @@
-QFrame#root{
-    background-color:#393E46;
-    border-radius: 10;
-}
-
-QLineEdit#input {
-    border: none;
-    color: #EEEEEE;
-    background-color: transparent;
-}
-
-QPushButton#btn {
-    border: none;
-    background-color: transparent;
-}
 QPushButton#register{
     background-color: #185ADB;
     color: white;
@@ -20,15 +5,16 @@ QPushButton#register{
     border-radius: 25;
     font-size: 18px;
 }
-QLabel#down1{
+
+QLabel#down{
     color: white;
     font-weight: bold;
     font-size: 14px;
 }
-QLabel#down2{
+
+QPushButton#login{
+    border: none;
     color: #188BDB;
     font-weight: bold;
     font-size: 14px;
 }
-
-

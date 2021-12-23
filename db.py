@@ -1,20 +1,24 @@
 import sqlite3
 
-db = sqlite3.connect('db.sqlite')
+cursor = sqlite3.connect('db.sqlite')
 
 
 def init():
-    
-    db.execute("""
-         CREATE TABLE IF NOT EXISTS USER
-         ( ID INT AUTO_INCREMENT PRIMARY KEY,
-           IS_ADMIN INT NOT NULL,
-           NAME VARCHAR(255) NOT NULL,
-           EMAIL VARCHAR(255) NOT NULL,
-           PASSWORD VARCHAR(255) NOT NULL,
-           PHONENUMBER TEXT NOT NULL,
-           PERMISSIONS TEXT NOT NULL
-         )
+    cursor.execute("""
+		CREATE TABLE IF NOT EXISTS USER
+      	(
+        	ID			INTEGER AUTO INCREMENT PRIMARY KEY,
+        	IS_ADMIN 	BOOLEAN NOT NULL,
+        	NAME 		TEXT NOT NULL,
+			EMAIL 		TEXT NOT NULL,
+			PASSWORD 	TEXT NOT NULL,
+			PHONE 		TEXT NOT NULL,
+			PERMISSIONS TEXT NOT NULL
+		)
     """)
-    db.commit()
-    pass
+    cursor.commit()
+
+
+def is_table_empty(table_name):
+    result = cursor.execute(f'SELECT COUNT(*) from {table_name}').fetchall()
+    return (result[0][0] == 0)

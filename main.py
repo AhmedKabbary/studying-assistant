@@ -7,7 +7,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QAction, QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMenu, QSystemTrayIcon, QWidget
 from widgets.title_bar import TitleBar
-db.init()
+
 app = QApplication(sys.argv)
 app.setQuitOnLastWindowClosed(False)  # app remains active even if the window is closed
 
@@ -38,13 +38,14 @@ class MainWindow(QMainWindow):
 
     def setup_content(self):
         page = None
-        if auth.get_current_user() is None:
+        if auth.is_logged_in():
+            page = HomePage
+        else:
             if auth.is_first_time():
                 page = RegisterPage
             else:
                 page = LoginPage
-        else:
-            page = HomePage
+
         self.navigate_to(page)
 
     def navigate_to(self, page: Type[QWidget]):
@@ -70,6 +71,8 @@ class MainWindow(QMainWindow):
             self.title_bar.show_back_btn(False)
 
 
+db.init()
+
 window = MainWindow(app)
 window.show()
 
@@ -88,7 +91,5 @@ quit.triggered.connect(app.quit)
 menu.addAction(quit)
 
 tray.setContextMenu(menu)
-
-
 
 sys.exit(app.exec())
