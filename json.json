@@ -1,0 +1,285 @@
+{
+    "Length": {
+        "standard_unit": "meter",
+        "units": {
+            "nanometer": {
+                "formula_to": "{} * 1000000000",
+                "formula_from": "{} /1000000000"
+            },
+            "micrometer": {
+                "formula_to": "{} * 1000000 ",
+                "formula_from": "{} /1000000 "
+            },
+            "millimeter": {
+                "formula_to": "{} * 1000",
+                "formula_from": "{} / 1000"
+            },
+            "decimeter": {
+                "formula_to": "{} * 10",
+                "formula_from": "{} / 10"
+            },
+            "centimeter": {
+                "formula_to": "{} * 100",
+                "fromula_from": "{} / 100"
+            },
+            "meter": {
+                "formula_to": "{}",
+                "formula_from": "{}"
+            },
+            "kilometer": {
+                "formula_to": "{} / 1000",
+                "formula_from": "{} * 1000"
+            },
+            "mile": {
+                "formula_to": "{} / 1609.344",
+                "formula_from": "{} * 1609.344"
+            },
+            "yard": {
+                "formula_to": "{} / 0.9144",
+                "formula_from": "{} * 0.9144"
+            },
+            "feet": {
+                "formula_to": "{} / 0.3048",
+                "formula_from": "{} * 0.3048"
+            },
+            "inch": {
+                "formula_to": "{} /0.0254",
+                "formula_from": "{} *0.0254"
+            }
+        }
+    },
+    "Weight": {
+        "standard_unit": "gram",
+        "units": {
+            "milligram": {
+                "formula_to": "{} * 1000",
+                "formula_from": "{} / 1000"
+            },
+            "gram": {
+                "formula_to": "{}",
+                "formula_from": "{}"
+            },
+            "kilogram": {
+                "formula__to": "{} * 0.001",
+                "formula_from": "{} / 0.001 "
+            },
+            "tonne": {
+                "formula_to": "{} * 0.000001",
+                "formula_from": "{} * 0.000001"
+            },
+            "pound": {
+                "formula_to": "{} *  0.002204622622",
+                "formula_from": "{} / 0.002204622622"
+            }
+        }
+    },
+    "Time": {
+        "standard_unit": "second",
+        "units": {
+            "century": {
+                "formula_to": "{} / 3110400000",
+                "formula_from": "{} * 3110400000"
+            },
+            "decade": {
+                "formula_to": "{} / 311040000 ",
+                "formula_from": "{} * 311040000"
+            },
+            "year": {
+                "formula_to": "{} /  31104000",
+                "formula_from": "{} *  31104000"
+            },
+            "month": {
+                "formula_to": "{} / 2592000 ",
+                "formula_from": "{} * 2592000 "
+            },
+            "week": {
+                "formula_to": "{} / 604800",
+                "formula_from": "{} * 604800"
+            },
+            "day": {
+                "formula_to": "{} / 86400 ",
+                "formula_from": "{} * 86400 "
+            },
+            "hour": {
+                "formula_to": "{} / 3600",
+                "formula_from": "{} * 3600"
+            },
+            "minute": {
+                "formula_to": "{} / 60",
+                "formula_from": "{} * 60 "
+            },
+            "second": {
+                "formula_to": "{}",
+                "formula_from": "{}"
+            },
+            "millisecond": {
+                "formula_to": "{} * 1000",
+                "formula_from": "{} / 1000"
+            }
+        }
+    },
+    "Speed": {
+        "standard_unit": "m/s",
+        "units": {
+            "km/h": {
+                "formula_to": "{} * 3.6",
+                "formula_from": "{} / 3.6"
+            },
+            "m/s": {
+                "formula_to": "{} ",
+                "formula_from": "{}"
+            },
+            "mile/hr": {
+                "formula_to": "{} * 2.2369",
+                "formula_from": "{} / 2.2369"
+            },
+            "feet/s": {
+                "formula_to": "{} * 3.2808",
+                "formula_ffrom": "{} / 3.2808"
+            }
+        }
+    },
+    "Force": {
+        "standard_unit": "N",
+        "units": {
+            "N": {
+                "formula_to": "{}",
+                "formula_from": "{}"
+            },
+            "J/m": {
+                "formula_to": "{}",
+                "formula_from": "{}"
+            },
+            "dyne": {
+                "formula_to": "{} / 0.00001",
+                "formula_from": "{} * 0.00001"
+            },
+            "kgf": {
+                "formula_to": "{} * 0.101972",
+                "formula_from": "{} / 0.101972"
+            }
+        }
+    },
+    "Pressure": {
+        "standard_unit": "Pa",
+        "units": {
+            "bar": {
+                "formula_to": "{} * 0.00001",
+                "formula_from": "{} / 0.00001"
+            },
+            "atm": {
+                "formula_to": "{} / 101325",
+                "formula_from": "{} * 101325"
+            },
+            "Pa": {
+                "formula_to": "{} ",
+                "formula_from": "{} "
+            },
+            "kPa": {
+                "formula_to": "{} * 0.001",
+                "formula_from": "{} / 0.001"
+            },
+            "MPa": {
+                "formula_to": "{} * 0.000001",
+                "formula_from": "{} / 0.000001"
+            }
+            
+        }
+    },
+    "Temperature": {
+        "standard_unit": "kelvin",
+        "units": {
+            "celsuis": {
+                "formula_to": "{} - 273.15",
+                "formula_from": "{} + 273.15"
+            },
+            "fahrenheit": {
+                "formula_to": "({} − 32) × 5/9 + 273.15",
+                "formula_from": "({} - 273.15)× 9/5 + 32"
+            },
+            "kelvin": {
+                "formula_to": "{}",
+                "formula_from": "{}"
+            }
+        }
+    },
+    "Area": {
+        "standard_unit": "m²",
+        "units": {
+            "ha": {
+                "formula_to": "{} * 0.0001",
+                "formula_from": "{} / 0.0001"
+            },
+            "km²": {
+                "formula_to": "{} * 0.000001",
+                "formula_from": "{} / 0.000001"
+            },
+            "m²": {
+                "formula_to": "{}",
+                "formula_from": "{}"
+            },
+            "dm²": {
+                "formula_to": "{} * 100",
+                "formula_from": "{} / 100"
+            },
+            "cm²": {
+                "formula_to": "{} * 10000",
+                "formula_from": "{} / 10000 "
+            },
+            "mm²": {
+                "formula_to": "{} * 1000000 ",
+                "formula_from": "{} / 1000000 "
+            }
+        }
+    },
+    "Volume": {
+        "standard_unit": "l",
+        "units": {
+            "m³": {
+                "formula_to": "{} * 0.001",
+                "formula_from": "{} / 0.001"
+            },
+            "cm³": {
+                "formula_to": "{} * 1000",
+                "formula_from": "{} /1000"
+            },
+            "l": {
+                "formula_to": "{}",
+                "formula_from": "{}"
+            },
+            "ml": {
+                "formula_to": "{} * 1000",
+                "formula_from": "{} / 1000"
+            }
+        }
+    },
+    "Data": {
+        "standard_unit": "byte",
+        "units": {
+            "bit": {
+                "formula_to": "{} * 8",
+                "formula_from": "{} / 8"
+            },
+            "byte": {
+                "formula_to": "{}",
+                "formula_from": "{}"
+            },
+            "kilobyte": {
+                "formula_to": "{} / 1024",
+                "formula_from": "{} * 1024"
+            },
+            "megabyte": {
+                "formula_to": "{} / 1048576",
+                "formula_from": "{} * 1048576"
+            },
+            "gegabyte": {
+                "formula_to": "{} / 1073741824",
+                "formula_from": "{} * 1073741824"
+            },
+            "terabyte": {
+                "formula_to": "{} / (1073741824 * 1024)",
+                "formula_from": "{} * (1073741824 * 1024)"
+            }
+        }
+    }
+}
