@@ -8,6 +8,8 @@ from PyQt6.QtGui import QAction, QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMenu, QSystemTrayIcon, QWidget
 from widgets.title_bar import TitleBar
 
+db.init()
+
 app = QApplication(sys.argv)
 app.setQuitOnLastWindowClosed(False)  # app remains active even if the window is closed
 
@@ -89,6 +91,6 @@ menu.addAction(quit)
 
 tray.setContextMenu(menu)
 
-db.init()
+
 
 sys.exit(app.exec())

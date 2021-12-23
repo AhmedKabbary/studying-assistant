@@ -20,7 +20,6 @@ class PomodorosPage(QWidget):
             css = f.read()
             self.setStyleSheet(css)
 
-        
         widget_po = QWidget()
         hbox_po = QHBoxLayout()
         po = pomo_timer()
