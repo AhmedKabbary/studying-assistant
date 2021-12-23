@@ -33,7 +33,10 @@ class HomePage(QWidget):
         v_layout.setSpacing(8)
         v_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        image = ImageWidget(100, 100, 'pic.jpg', 20)
+        image = ImageWidget()
+        image.setFixedSize(100, 100)
+        image.set_radius(20)
+        image.set_image('pic.jpg')
         v_layout.addWidget(image, alignment=Qt.AlignmentFlag.AlignHCenter)
 
         v_layout.addSpacing(16)

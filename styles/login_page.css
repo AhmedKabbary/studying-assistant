@@ -3,25 +3,12 @@ QLabel#title {
     font-size: 50px;
     font-weight: bold;
 }
-QLabel#title2 {
+
+QLabel#subtitle {
     color: #EEEEEE;
     font-size: 16px;
 }
-QFrame#root{
-    background-color:#393E46;
-    border-radius: 10;
-}
 
-QLineEdit#input {
-    border: none;
-    color: #EEEEEE;
-    background-color: transparent;
-}
-
-QPushButton#btn {
-    border: none;
-    background-color: transparent;
-}
 QPushButton#login{
     background-color: #185ADB;
     color: white;
@@ -29,15 +16,16 @@ QPushButton#login{
     border-radius: 25;
     font-size: 18px;
 }
-QLabel#down1{
+
+QLabel#down{
     color: white;
     font-weight: bold;
     font-size: 14px;
 }
-QLabel#down2{
+
+QPushButton#register{
+    border: none;
     color: #188BDB;
     font-weight: bold;
     font-size: 14px;
 }
-
-

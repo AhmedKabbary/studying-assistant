@@ -1,16 +1,26 @@
+import db
+
+user_id = None
+
+
 def is_first_time():
-    return False
+    return db.is_table_empty('USER')
+
+
+def is_logged_in():
+    # TODO check database
+    return (user_id != None)
 
 
 def get_current_user():
-    return {}
+    return None
 
 
-def register():
+def register(pic, name, email, phone, password):
     pass
 
 
-def login():
+def login(email, password):
     pass
 
 

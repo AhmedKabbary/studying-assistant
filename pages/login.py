@@ -14,35 +14,66 @@ class LoginPage(QWidget):
             css = f.read()
             self.setStyleSheet(css)
 
-        v_layout = QVBoxLayout(self)
+        self.v_layout = QVBoxLayout(self)
+        self.v_layout.setSpacing(15)
+        self.v_layout.setContentsMargins(25, 0, 25, 15)
+
+        self.v_layout.addStretch()
+
         lbl = QLabel('Login')
         lbl.setObjectName('title')
-        v_layout.addWidget(lbl, alignment=Qt.AlignmentFlag.AlignLeft)
-        v_layout.setContentsMargins(16,16,16,16)
+        self.v_layout.addWidget(lbl, alignment=Qt.AlignmentFlag.AlignLeft)
 
         lbl2 = QLabel('sign into your account')
-        lbl2.setObjectName('title2')
-        v_layout.addWidget(lbl2, alignment=Qt.AlignmentFlag.AlignLeft)
+        lbl2.setObjectName('subtitle')
+        self.v_layout.addWidget(lbl2, alignment=Qt.AlignmentFlag.AlignLeft)
 
-        email = InputField('Email', False)
-        v_layout.addWidget(email, alignment=Qt.AlignmentFlag.AlignCenter)
+        self.v_layout.addStretch()
 
-        password = InputField('Password', True)
-        v_layout.addWidget(password, alignment=Qt.AlignmentFlag.AlignCenter)
+        self.setup_input_fields()
 
-        button=QPushButton("Login")
-        button.setFixedSize(200,50)
+        self.v_layout.addStretch()
+
+        button = QPushButton("Login")
+        button.setFixedSize(200, 50)
         button.setObjectName('login')
-        v_layout.addWidget(button, alignment=Qt.AlignmentFlag.AlignCenter)
+        self.v_layout.addWidget(button, alignment=Qt.AlignmentFlag.AlignCenter)
 
-        b=QWidget()
-        ho_lay=QHBoxLayout(b)
-        c1=QLabel("Don't have an account?")
-        c1.setObjectName('down1')
-        ho_lay.addWidget(c1, alignment=Qt.AlignmentFlag.AlignCenter)
-        c2=QLabel('Register here')
-        c2.setObjectName('down2')
-        ho_lay.addWidget(c2, alignment=Qt.AlignmentFlag.AlignCenter)
-        v_layout.addWidget(b, alignment=Qt.AlignmentFlag.AlignCenter)
+        self.setup_register_line()
 
+    def setup_input_fields(self):
+        size = QSize(350, 50)
 
+        email = InputField('Email', "icons/email.svg")
+        email.setFixedSize(size)
+        self.v_layout.addWidget(email, alignment=Qt.AlignmentFlag.AlignHCenter)
+
+        password = InputField('Password', "icons/lock.svg")
+        password.setFixedSize(size)
+        password.hide_contents(True)
+        self.v_layout.addWidget(password, alignment=Qt.AlignmentFlag.AlignHCenter)
+
+    def setup_register_line(self):
+        register_widget = QWidget()
+        h_layout = QHBoxLayout(register_widget)
+        h_layout.setContentsMargins(0, 0, 0, 0)
+        h_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        lbl1 = QLabel('Don\'t have an account?')
+        lbl1.setObjectName('down')
+        h_layout.addWidget(lbl1)
+
+        btn2 = QPushButton('Register here')
+        btn2.setObjectName('register')
+        btn2.clicked.connect(self.register)
+        btn2.setCursor(Qt.CursorShape.PointingHandCursor)
+        h_layout.addWidget(btn2)
+
+        self.v_layout.addWidget(register_widget, alignment=Qt.AlignmentFlag.AlignHCenter)
+
+    def login(self):
+        print("beshr")
+
+    def register(self):
+        from pages.register import RegisterPage
+        self.window().navigate_to(RegisterPage)

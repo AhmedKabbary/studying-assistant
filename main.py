@@ -38,13 +38,14 @@ class MainWindow(QMainWindow):
 
     def setup_content(self):
         page = None
-        if auth.get_current_user() is None:
+        if auth.is_logged_in():
+            page = HomePage
+        else:
             if auth.is_first_time():
                 page = RegisterPage
             else:
                 page = LoginPage
-        else:
-            page = HomePage
+
         self.navigate_to(page)
 
     def navigate_to(self, page: Type[QWidget]):
@@ -68,6 +69,7 @@ class MainWindow(QMainWindow):
         else:
             self.title_bar.setWindowTitle(None)
             self.title_bar.show_back_btn(False)
+
 
 db.init()
 
