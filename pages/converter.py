@@ -3,8 +3,8 @@ from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 import json
 
-with open("json.json", "r") as s:
-        obj: dict = json.loads(s.read())
+with open("units.json", "r") as s:
+    obj: dict = json.loads(s.read())
 
 class ConverterPage(QWidget):
     def __init__(self, *args, **kwargs):
