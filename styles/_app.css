@@ -18,3 +18,18 @@ QScrollBar::add-line:vertical {
 QScrollBar::sub-line:vertical {
     background: none;
 }
+
+QMenu{
+    background-color: #232931;
+    color: white;
+}
+
+QMenu::item{
+    background-color: #232931;
+    color: white;
+}
+
+QMenu::item:selected{
+    background-color: #00ADB5;
+    color: white;
+}

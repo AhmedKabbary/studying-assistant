@@ -4,13 +4,20 @@ from PyQt6.QtGui import *
 
 
 class WordWidget(QFrame):
-    def __init__(self, text, difficulty):
+
+    deleted = pyqtSignal()
+
+    def __init__(self, id, text, difficulty):
         super().__init__()
+        self.id = id
 
         self.setFixedSize(170, 45)
+        self.setObjectName('root')
         self.setStyleSheet("""
-            background-color: #393E46;
-            border-radius: 5;
+            QFrame#root {
+                border-radius: 50;
+                background-color: #393E46;
+            }
         """)
 
         layout = QHBoxLayout(self)
@@ -39,11 +46,25 @@ class WordWidget(QFrame):
                 border-bottom-left-radius: 5;
             """)
         layout.addWidget(band)
-        
+
         label = QLabel(text)
         label.setStyleSheet("""
             color: #EEEEEE;
             font-size: 18px;
+            background-color: transparent;
         """)
         layout.addWidget(label)
 
+    def mousePressEvent(self, a0: QMouseEvent):
+        if a0.button() == Qt.MouseButton.RightButton:
+            menu = QMenu()
+            delete = QAction('Delete')
+            delete.triggered.connect(self.delete_word)
+            menu.addAction(delete)
+            menu.exec(QPoint(int(a0.globalPosition().x()), int(a0.globalPosition().y())))
+
+    def delete_word(self):
+        import db
+        db.cursor.execute('DELETE FROM DICTIONARY WHERE ID = ' + str(self.id))
+        db.cursor.commit()
+        self.deleted.emit()
