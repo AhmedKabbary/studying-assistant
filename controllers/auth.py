@@ -1,6 +1,6 @@
 import db
 
-user_id = None
+user_id = 1
 
 
 def is_first_time():
