@@ -32,7 +32,7 @@ class pomo_timer(QFrame):
         if self.timer.isActive():
             self.timer.stop()
         else:
-            self.timer.start(1000)
+            self.timer.start(10)
 
     def replay(self):
         self.timer.stop()

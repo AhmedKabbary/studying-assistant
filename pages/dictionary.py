@@ -1,8 +1,9 @@
+import db
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
-
 from widgets.word import WordWidget
+
 
 class DictionaryPage(QWidget):
     def __init__(self, *args, **kwargs):
@@ -16,28 +17,24 @@ class DictionaryPage(QWidget):
 
         v_layout = QVBoxLayout(self)
         v_layout.setContentsMargins(20, 20, 20, 30)
-        
-        scroll=QScrollArea()
+
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setAlignment(Qt.AlignmentFlag.AlignTop)
         scroll.setFixedSize(350, 400)
         scroll.horizontalScrollBar().hide()
         scroll.setStyleSheet('border: none;')
 
         w = QWidget()
         self.grid_layout = QGridLayout(w)
-        
-        self.list = [
-            ('Python', 0),# 0 , 0
-            ('Yomna', 1), # 0 , 1
-            ('Ahmed', 2), # 1 , 0
-            ('Amena', 0), # 1 , 1 
-        ]
+        self.grid_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        self.show_grid()
+        self.load_grid()
 
         v_layout.addWidget(scroll)
         scroll.setWidget(w)
 
-        btn=QPushButton()
+        btn = QPushButton()
         btn.setText("ADD WORD")
         btn.setFixedSize(200, 50)
         btn.setObjectName('add')
@@ -45,11 +42,18 @@ class DictionaryPage(QWidget):
         btn.setCursor(Qt.CursorShape.PointingHandCursor)
         v_layout.addWidget(btn, alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom)
 
-    def show_grid(self):
-        for index, item in enumerate(self.list):
+    def load_grid(self):
+        list = []
+        result = db.cursor.execute('SELECT * FROM DICTIONARY')
+        for row in result:
+            list.append(row)
+
+        for index, item in enumerate(list):
             r = (index // 2)
             c = 0 if (index % 2 == 0) else 1
-            self.grid_layout.addWidget(WordWidget(item[0], item[1]), r, c)
+            w = WordWidget(item[0], item[1], item[2])
+            w.deleted.connect(self.word_deleted)
+            self.grid_layout.addWidget(w, r, c)
 
     def add_word(self):
         d = InputWordDialog()
@@ -57,15 +61,14 @@ class DictionaryPage(QWidget):
         d.exec()
 
     def word_added(self, word, difficulty):
-        #insert in database
-        import db
-        #db.db.execute("INSERT INTO DICTIONARY(ID, WORD, DIFFICULTY) VALUES ()" )
-        db.db.commit()
-        self.list.append((word, difficulty))
-        r = ((len(self.list)-1) // 2)
-        c = 0 if ((len(self.list)-1) % 2 == 0) else 1
-        self.grid_layout.addWidget(WordWidget(word, difficulty), r, c)
-        
+        db.cursor.execute("INSERT INTO DICTIONARY (WORD, DIFFICULTY) VALUES (?, ?)", (word, difficulty))
+        db.cursor.commit()
+        self.load_grid()
+
+    def word_deleted(self):
+        for i in reversed(range(self.grid_layout.count())):
+            self.grid_layout.itemAt(i).widget().deleteLater()
+        self.load_grid()
 
 
 class InputWordDialog(QDialog):
@@ -74,7 +77,7 @@ class InputWordDialog(QDialog):
 
     def __init__(self):
         super().__init__()
-        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        self.setWindowTitle('Add a word')
         self.setStyleSheet("""
             QDialog {
                 background-color: #232931;
@@ -102,41 +105,43 @@ class InputWordDialog(QDialog):
                 background-color: #393E46;
                 color : #EEEEEE;
             }
+
             QRadioButton {
-                color:#EEEEEE;
+                color: #EEEEEE;
             }
+
             QLineEdit {
                 color: #EEEEEE;
             }
         """)
-        
+
         v_layout = QVBoxLayout(self)
         v_layout.setSpacing(24)
 
         self.word = QLineEdit()
         self.word.setPlaceholderText('Enter a word')
         v_layout.addWidget(self.word)
-        
+
         group = QGroupBox()
-        group
         group.setTitle('Select difficulty')
         group_layout = QVBoxLayout(group)
 
         self.easy = QRadioButton('easy', group)
         group_layout.addWidget(self.easy)
-        self.medium = QRadioButton('medium', group)
-        group_layout.addWidget(self.medium)
+        self.normal = QRadioButton('normal', group)
+        self.normal.setChecked(True)
+        group_layout.addWidget(self.normal)
         self.hard = QRadioButton('hard', group)
         group_layout.addWidget(self.hard)
 
         v_layout.addWidget(group)
-        
+
         # qwidget with horizontal layout
         # put two buttons in the horizontal layout
         # add the qwidget in the main v_layout
         widget = QWidget()
         h_layout = QHBoxLayout(widget)
-        h_layout.setContentsMargins(0,0,0,0)
+        h_layout.setContentsMargins(0, 0, 0, 0)
 
         btn1 = QPushButton()
         btn1.setText("OK")
@@ -150,7 +155,7 @@ class InputWordDialog(QDialog):
         btn2.setFixedHeight(30)
         btn2.setCursor(Qt.CursorShape.PointingHandCursor)
         btn2.clicked.connect(self.close)
-        
+
         h_layout.addWidget(btn2, stretch=1)
 
         v_layout.addWidget(widget)
@@ -161,7 +166,7 @@ class InputWordDialog(QDialog):
         d = 0
         if self.easy.isChecked():
             d = 0
-        elif self.medium.isChecked():
+        elif self.normal.isChecked():
             d = 1
         elif self.hard.isChecked():
             d = 2
