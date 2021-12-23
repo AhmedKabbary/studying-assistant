@@ -1,5 +1,14 @@
-QLabel#hello_world {
+QFrame#button_frame {
+    background-color: #393E46;
+
+}
+QPushButton#swap_button{
+    border-radius: 10px;
+    background-color: #188bdb;
+}
+QLineEdit#LineToTranslate{
+    border: none;
+    background-color: transparent;
     color: #EEEEEE;
-    font-size: 16px;
-    font-weight: bold;
+    padding: 8px;
 }
