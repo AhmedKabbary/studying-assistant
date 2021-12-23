@@ -63,7 +63,7 @@ class ConverterPage(QWidget):
             font-size:18 px;
             font-weight :bold;
         """)
-        button.setIcon(QIcon('icons/swap.svg'))
+        button.setIcon(QIcon('icons/swap_h.svg'))
         button.setIconSize(QSize(30, 30))
 
         frame2 = QFrame(self)

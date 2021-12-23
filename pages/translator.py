@@ -45,5 +45,5 @@ class TranslatorPage(QWidget):
         swap.move(340,225)
         swap.setFixedSize(40,50)
         swap.setObjectName('swap_button')
-        swap.setIcon(QIcon('icons/swap.svg'))
+        swap.setIcon(QIcon('icons/swap_v.svg'))
         swap.setIconSize(QSize(35, 35))
