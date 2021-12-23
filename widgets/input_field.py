@@ -32,6 +32,7 @@ class InputField(QFrame):
         btn = QPushButton()
         btn.setObjectName('btn')
         btn.setIcon(QIcon(icon))
+        btn.setCheckable(False)
         h_layout.addWidget(btn)
 
         self.input = QLineEdit()
