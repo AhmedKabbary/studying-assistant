@@ -1,3 +1,7 @@
+QWidget {
+    color: white;
+}
+
 QPushButton#register{
     background-color: #185ADB;
     color: white;
@@ -17,4 +21,8 @@ QPushButton#login{
     color: #188BDB;
     font-weight: bold;
     font-size: 14px;
+}
+
+QWidget {
+    color: white;
 }

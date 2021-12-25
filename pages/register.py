@@ -6,6 +6,9 @@ from widgets.input_field import InputField
 
 
 class RegisterPage(QWidget):
+
+    pic = None
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setWindowTitle('Register')
@@ -16,7 +19,7 @@ class RegisterPage(QWidget):
             self.setStyleSheet(css)
 
         self.v_layout = QVBoxLayout(self)
-        self.v_layout.setSpacing(15)
+        self.v_layout.setSpacing(10)
         self.v_layout.setContentsMargins(25, 0, 25, 15)
 
         image = ImageWidget()
@@ -38,32 +41,34 @@ class RegisterPage(QWidget):
         register.setCursor(Qt.CursorShape.PointingHandCursor)
         self.v_layout.addWidget(register, alignment=Qt.AlignmentFlag.AlignHCenter)
 
+        self.v_layout.addSpacing(5)
+
         self.setup_login_line()
 
     def setup_input_fields(self):
         size = QSize(350, 50)
 
-        name = InputField('Name', "icons/person.svg")
-        name.setFixedSize(size)
-        self.v_layout.addWidget(name, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.name = InputField('Name', "icons/person.svg")
+        self.name.setFixedSize(size)
+        self.v_layout.addWidget(self.name, alignment=Qt.AlignmentFlag.AlignHCenter)
 
-        email = InputField('Email', "icons/email.svg")
-        email.setFixedSize(size)
-        self.v_layout.addWidget(email, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.email = InputField('Email', "icons/email.svg")
+        self.email.setFixedSize(size)
+        self.v_layout.addWidget(self.email, alignment=Qt.AlignmentFlag.AlignHCenter)
 
-        phone = InputField('Phone', "icons/phone.svg")
-        phone.setFixedSize(size)
-        self.v_layout.addWidget(phone, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.phone = InputField('Phone', "icons/phone.svg")
+        self.phone.setFixedSize(size)
+        self.v_layout.addWidget(self.phone, alignment=Qt.AlignmentFlag.AlignHCenter)
 
-        password = InputField('Password', "icons/lock.svg")
-        password.setFixedSize(size)
-        password.hide_contents(True)
-        self.v_layout.addWidget(password, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.password = InputField('Password', "icons/lock.svg")
+        self.password.setFixedSize(size)
+        self.password.hide_contents(True)
+        self.v_layout.addWidget(self.password, alignment=Qt.AlignmentFlag.AlignHCenter)
 
-        password2 = InputField('Confirm Password', "icons/lock.svg")
-        password2.setFixedSize(size)
-        password2.hide_contents(True)
-        self.v_layout.addWidget(password2, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.password2 = InputField('Confirm Password', "icons/lock.svg")
+        self.password2.setFixedSize(size)
+        self.password2.hide_contents(True)
+        self.v_layout.addWidget(self.password2, alignment=Qt.AlignmentFlag.AlignHCenter)
 
     def setup_login_line(self):
         login_widget = QWidget()
@@ -84,7 +89,11 @@ class RegisterPage(QWidget):
         self.v_layout.addWidget(login_widget, alignment=Qt.AlignmentFlag.AlignHCenter)
 
     def register(self):
-        print("beshr")
+        import controllers.auth as Auth
+        #try:
+        Auth.register(self.pic, self.name.text(),  self.email.text(), self.phone.text(), self.password.text(), self.password2.text())
+        #except Exception as e:
+        #    QMessageBox.critical(self, 'An error occurred', e.args[0])
 
     def login(self):
         from pages.login import LoginPage

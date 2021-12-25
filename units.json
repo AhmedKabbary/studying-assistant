@@ -4,11 +4,11 @@
         "units": {
             "nanometer": {
                 "formula_to": "{} * 1000000000",
-                "formula_from": "{} /1000000000"
+                "formula_from": "{} / 1000000000"
             },
             "micrometer": {
                 "formula_to": "{} * 1000000 ",
-                "formula_from": "{} /1000000 "
+                "formula_from": "{} / 1000000 "
             },
             "millimeter": {
                 "formula_to": "{} * 1000",
@@ -43,8 +43,8 @@
                 "formula_from": "{} * 0.3048"
             },
             "inch": {
-                "formula_to": "{} /0.0254",
-                "formula_from": "{} *0.0254"
+                "formula_to": "{} / 0.0254",
+                "formula_from": "{} * 0.0254"
             }
         }
     },
@@ -65,10 +65,10 @@
             },
             "tonne": {
                 "formula_to": "{} * 0.000001",
-                "formula_from": "{} * 0.000001"
+                "formula_from": "{} / 0.000001"
             },
             "pound": {
-                "formula_to": "{} *  0.002204622622",
+                "formula_to": "{} * 0.002204622622",
                 "formula_from": "{} / 0.002204622622"
             }
         }
@@ -85,8 +85,8 @@
                 "formula_from": "{} * 311040000"
             },
             "year": {
-                "formula_to": "{} /  31104000",
-                "formula_from": "{} *  31104000"
+                "formula_to": "{} / 31104000",
+                "formula_from": "{} * 31104000"
             },
             "month": {
                 "formula_to": "{} / 2592000 ",
@@ -126,7 +126,7 @@
                 "formula_from": "{} / 3.6"
             },
             "m/s": {
-                "formula_to": "{} ",
+                "formula_to": "{}",
                 "formula_from": "{}"
             },
             "mile/hr": {
@@ -172,8 +172,8 @@
                 "formula_from": "{} * 101325"
             },
             "Pa": {
-                "formula_to": "{} ",
-                "formula_from": "{} "
+                "formula_to": "{}",
+                "formula_from": "{}"
             },
             "kPa": {
                 "formula_to": "{} * 0.001",
@@ -194,8 +194,8 @@
                 "formula_from": "{} + 273.15"
             },
             "fahrenheit": {
-                "formula_to": "({} − 32) × 5/9 + 273.15",
-                "formula_from": "({} - 273.15)× 9/5 + 32"
+                "formula_to": "({} - 32) * 5/9 + 273.15",
+                "formula_from": "({} - 273.15) * 9/5 + 32"
             },
             "kelvin": {
                 "formula_to": "{}",
@@ -241,7 +241,7 @@
             },
             "cm³": {
                 "formula_to": "{} * 1000",
-                "formula_from": "{} /1000"
+                "formula_from": "{} / 1000"
             },
             "l": {
                 "formula_to": "{}",
