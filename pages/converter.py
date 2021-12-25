@@ -1,49 +1,31 @@
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
+from widgets.dropdown import DropDown
 import json
 
-with open("units.json", "r") as s:
-    obj: dict = json.loads(s.read())
 
 class ConverterPage(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setWindowTitle('Units Converter')
         self.window().setStyleSheet('background-color: #232931')
+
         with open("styles/converter_page.css") as f:
             css = f.read()
             self.setStyleSheet(css)
+
+        with open("units.json", "r") as s:
+            self.units: dict = json.loads(s.read())
+
         v_layout = QVBoxLayout(self)
 
-        def UiComponents(self):
-              frame = QFrame(self)
-              frame.setGeometry(145, 100, 120, 30)
-              frame.setStyleSheet("""  
-              QFrame{
-                padding: 8px;
-                color: #EEEEEE;
-                border-radius: 5;
-                background-color: #232931;
-                border: 1px solid #00ADB5;
-               }
-             """)
- 
-        self.combo_box = QComboBox(self)
-        self.combo_box.setGeometry(145, 100, 120, 30)
-        self.combo_box.addItems(obj.keys())
-        self.combo_box.setEditable(False)
-        self.combo_box.currentIndexChanged.connect(self.Typeselected)
-        self.combo_box.setStyleSheet("""
-            QComboBox{
-                border: none;
-                color: #EEEEEE;
-                padding: 8px;
-                background-color: transparent;
-            }
-        """)
+        self.type_combo = DropDown(self, QSize(120, 30))
+        self.type_combo.move(145, 100)
+        self.type_combo.addItems(list(self.units.keys()))
+        self.type_combo.currentIndexChanged.connect(self.Typeselected)
 
-        s = obj[self.combo_box.currentText()]["units"].keys()
+        s = self.units[self.type_combo.currentText()]["units"].keys()
         self.combobox1 = QComboBox(self)
         self.combobox1.setGeometry(20, 270, 100, 50)
         self.combobox1.addItems(s)
@@ -102,10 +84,10 @@ class ConverterPage(QWidget):
 
     def Typeselected(self):
         self.combobox1.clear()
-        b = obj[self.combo_box.currentText()]["units"].keys()
+        b = self.units[self.type_combo.currentText()]["units"].keys()
         self.combobox1.addItems(b)
         self.comboboxx.clear()
-        d = obj[self.combo_box.currentText()]["units"].keys()
+        d = self.units[self.type_combo.currentText()]["units"].keys()
         self.comboboxx.addItems(d)
 
     def choose(self):
@@ -113,18 +95,18 @@ class ConverterPage(QWidget):
         self.combobox1.setCurrentIndex(self.comboboxx.currentIndex())
         self.comboboxx.setCurrentIndex(g)
         self.do_action()
- 
+
     def do_action(self):
         if self.line_edit.text().isdigit():
 
             d = self.line_edit.text()
-            formula_from = obj[self.combo_box.currentText(
+            formula_from = self.units[self.type_combo.currentText(
             )]["units"][self.combobox1.currentText()]["formula_from"]
 
             eq = formula_from.format(self.line_edit.text())
             r = eval(eq)
 
-            formula_to = obj[self.combo_box.currentText(
+            formula_to = self.units[self.type_combo.currentText(
             )]["units"][self.comboboxx.currentText()]["formula_to"]
             eqq = formula_to.format(r)
             q = eval(eqq)

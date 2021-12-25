@@ -66,7 +66,7 @@ class DropDown(QFrame):
 
         btn = QPushButton()
         btn.setObjectName('btn')
-        btn.setIcon(QIcon('arrow_drop.svg'))
+        btn.setIcon(QIcon('icons/arrow_drop.svg'))
         btn.setIconSize(QSize(26, 26))
         btn.clicked.connect(self.mousePressEvent)
         l.addWidget(btn)
