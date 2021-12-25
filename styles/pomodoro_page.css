@@ -43,25 +43,3 @@ QLabel#slf {
   font-size: 21px;
   padding: 8px;
 }
-
-QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical, 
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-  border: none;
-  background: none;
-  color: none;
-  width: 0px;
-  height: 0px;
-}
-
-QScrollBar::add-line, QScrollBar::sub-line {
-  border:none;
-  background-color:none;
-  width: 0px;
-  height: 0px;
-}
-
-QScrollBar::handle {
-  background-color: #EEEEEE;
-  border-radius: 5px;
-  min-height: 25px;
-}

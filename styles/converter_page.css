@@ -1,5 +1,25 @@
-QLabel#hello_world {
+QPushButton#swap {
+    border-radius: 10;
+    background-color:#188bdb;
+}
+
+QLineEdit#input{ 
+    border: none;
     color: #EEEEEE;
-    font-size: 16px;
-    font-weight: bold;
+    padding: 8px;
+    border-radius:5;
+    background-color: #393E46;
+}
+
+QLabel#result{
+    padding: 8px;
+    color: #EEEEEE;
+    border-radius:5;
+    background-color: #393E46;
+}
+
+QLabel#lbl {
+    color: #EEEEEE;
+    font-size: 17px;
+    font-weight :bold;
 }

@@ -20,16 +20,16 @@ QScrollBar::sub-line:vertical {
 }
 
 QMenu{
-    background-color: #232931;
+    background-color: #393E46;
     color: white;
 }
 
 QMenu::item{
-    background-color: #232931;
+    background-color: #393E46;
     color: white;
 }
 
 QMenu::item:selected{
-    background-color: #00ADB5;
+    background-color: #188bdb;
     color: white;
 }

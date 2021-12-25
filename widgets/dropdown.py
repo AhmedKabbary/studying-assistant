@@ -16,7 +16,7 @@ class DropDown(QFrame):
             QFrame#root_with_border {
                 border-radius: 5;
                 background-color: #232931;
-                border: 1px solid #00ADB5;
+                border: 1px solid #188bdb;
             }
 
             QFrame#root_without_border {
@@ -35,27 +35,12 @@ class DropDown(QFrame):
                 border: none;
                 background-color: transparent;
             }
-
-            QMenu{
-                background-color: #393E46;
-                color: #EEEEEE;
-            }
-
-            QMenu::item{
-                background-color: #393E46;
-                color: #EEEEEE;
-            }
-
-            QMenu::item:selected{
-                background-color: #00ADB5;
-                color: #EEEEEE;
-            }
         """)
         self.setFixedSize(size)
         self.setCursor(Qt.CursorShape.PointingHandCursor)
 
         l = QHBoxLayout(self)
-        l.setContentsMargins(16, 16, 8, 16)
+        l.setContentsMargins(16, 0, 8, 0)
         l.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.lbl = QLabel()
@@ -73,17 +58,17 @@ class DropDown(QFrame):
 
     def addItems(self, items):
         self.items.extend(items)
-        self.currentIndex = 0
+        self._currentIndex = 0
         self.lbl.setText(items[0])
 
     def clear(self):
         self.items.clear()
 
     def currentIndex(self):
-        return self.currentIndex
+        return self._currentIndex
 
     def currentText(self):
-        return self.items[self.currentIndex]
+        return self.items[self._currentIndex]
 
     def mousePressEvent(self, event):
         contextMenu = QMenu(self)
@@ -91,13 +76,13 @@ class DropDown(QFrame):
 
         for index, item in enumerate(self.items):
             action = QAction(item, self)
-            action.triggered.connect(lambda _, i=index: self._setCurrentIndex(i))
+            action.triggered.connect(lambda _, i=index: self.setCurrentIndex(i))
             contextMenu.addAction(action)
 
-        contextMenu.exec(self.window().geometry().topLeft() + self.geometry().bottomLeft())
+        contextMenu.exec(self.mapToGlobal(QPoint(0, self.height())))
 
-    def _setCurrentIndex(self, index):
-        self.currentIndex = index
+    def setCurrentIndex(self, index):
+        self._currentIndex = index
         self.lbl.setText(self.items[index])
         self.currentIndexChanged.emit()
         self.currentTextChanged.emit()
