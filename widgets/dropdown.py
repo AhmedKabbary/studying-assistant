@@ -21,7 +21,7 @@ class DropDown(QFrame):
 
             QFrame#root_without_border {
                 border-radius: 5;
-                background-color: #232931;
+                background-color: transparent;
                 border: none;
             }
 
@@ -29,6 +29,7 @@ class DropDown(QFrame):
                 color: #EEEEEE;
                 font-size: 18px;
                 font-weight: bold;
+                background-color: transparent;
             }
 
             QPushButton#btn {

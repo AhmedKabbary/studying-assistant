@@ -55,6 +55,7 @@ class ConverterPage(QWidget):
         swap.clicked.connect(self.swap)
         swap.setIcon(QIcon('icons/swap_h.svg'))
         swap.setIconSize(QSize(35, 35))
+        swap.setCursor(Qt.CursorShape.PointingHandCursor)    
         h_layout.addWidget(
             swap, alignment=Qt.AlignmentFlag.AlignCenter)
 
