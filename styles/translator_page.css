@@ -6,9 +6,23 @@ QPushButton#swap_button{
     border-radius: 10px;
     background-color: #188bdb;
 }
-QLineEdit#LineToTranslate{
+QTextEdit#LineToTranslate{
     border: none;
     background-color: transparent;
     color: #EEEEEE;
     padding: 8px;
+}
+QComboBox#combo{
+    border: none;
+    color: #EEEEEE;
+    padding: 8px;
+    background-color: transparent;
+}
+QLabel#label{
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    color: #EEEEEE;
+
+
 }
