@@ -1,6 +1,6 @@
 import db as _db
 
-user_id = None
+user = None
 
 
 def is_first_time():
@@ -8,7 +8,7 @@ def is_first_time():
 
 
 def is_logged_in():
-    return (user_id != None)
+    return (user != None)
 
 
 def get_current_user():
@@ -28,7 +28,7 @@ def register(pic: str, name: str, email: str, phone: str, password: str, passwor
     if is_email_exists(email):
         raise Exception('Email already registered')
 
-    if (len(phone) != 11) | phone.isdigit():
+    if (len(phone) != 11) | (not phone.isdigit()):
         raise Exception('Phone number must be 11 digits')
 
     if len(password) < 3:
@@ -44,17 +44,23 @@ def register(pic: str, name: str, email: str, phone: str, password: str, passwor
         raise Exception("Passwords don't match")
 
     _db.cursor.execute("""
-        INSERT INTO DICTIONARY
+        INSERT INTO USER
         (IS_ADMIN, PICTURE, NAME, EMAIL, PHONE, PASSWORD, PERMISSIONS)
         VALUES
-        (?, ?, ?, ?, ?, ?)
-    """, (1 if is_first_time() else 0, pic, name, email, phone, password, "T,P,C,D,A,G"))
+        (?, ?, ?, ?, ?, ?, ?)
+    """, (1 if is_first_time() else 0, pic, name, email, phone, password, "T,P,C"))
     _db.cursor.commit()
 
 
 def login(email, password):
-    pass
+    result = _db.cursor.execute(f'SELECT * FROM USER WHERE EMAIL = ? AND PASSWORD = ?', (email, password)).fetchone()
+    if result is None:
+        raise Exception('Email or password is not correct')
+    else:
+        global user
+        user = result
 
 
 def logout():
-    pass
+    global user
+    user = None

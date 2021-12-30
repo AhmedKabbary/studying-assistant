@@ -3,6 +3,7 @@ QWidget {
 }
 
 QPushButton#register{
+    border: none;
     background-color: #185ADB;
     color: white;
     font-weight: bold;

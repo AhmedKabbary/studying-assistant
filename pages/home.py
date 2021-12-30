@@ -5,6 +5,7 @@ from widgets.home_btn import HomeButton
 from widgets.icon_btn import IconButton
 from widgets.image import ImageWidget
 from pages import *
+import controllers.auth as Auth
 
 
 class HomePage(QWidget):
@@ -46,7 +47,7 @@ class HomePage(QWidget):
         h_layout.setContentsMargins(0, 0, 0, 0)
         h_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        name = QLabel('Ahmed Kabbary')
+        name = QLabel(Auth.user[3])
         name.setObjectName('name')
         h_layout.addWidget(name)
         h_layout.addSpacing(8)
@@ -54,11 +55,11 @@ class HomePage(QWidget):
         h_layout.addWidget(edit_btn)
         v_layout.addWidget(w1, alignment=Qt.AlignmentFlag.AlignHCenter)
 
-        email = QLabel('ahmed@example.com')
+        email = QLabel(Auth.user[4])
         email.setObjectName('email')
         v_layout.addWidget(email, alignment=Qt.AlignmentFlag.AlignHCenter)
 
-        role = QLabel('admin')
+        role = QLabel('admin' if Auth.user[1] == 1 else 'user')
         role.setObjectName('role')
         v_layout.addWidget(role, alignment=Qt.AlignmentFlag.AlignHCenter)
 
@@ -77,10 +78,13 @@ class HomePage(QWidget):
         line.setFixedHeight(2)
         line.setObjectName('line')
 
+        available_buttons = Auth.user[7]
+        print(available_buttons)
+
         g_layout.addWidget(line, 0, 1)
-        g_layout.addWidget(HomeButton('Tasks', QIcon('icons/tasks.svg'), TasksPage), 1, 0)
-        g_layout.addWidget(HomeButton('Pomodoro', QIcon('icons/timer.svg'), PomodorosPage), 1, 1)
-        g_layout.addWidget(HomeButton('Converter', QIcon('icons/ruler.svg'), ConverterPage), 1, 2)
-        g_layout.addWidget(HomeButton('Dictionary', QIcon('icons/bookmark.svg'), DictionaryPage), 2, 0)
-        g_layout.addWidget(HomeButton('AI Answerer', QIcon('icons/book.svg'), AIPage), 2, 1)
-        g_layout.addWidget(HomeButton('Translator', QIcon('icons/g_translate.svg'), TranslatorPage), 2, 2)
+        g_layout.addWidget(HomeButton('Tasks', QIcon('icons/tasks.svg'), TasksPage, 'T' in available_buttons), 1, 0)
+        g_layout.addWidget(HomeButton('Pomodoro', QIcon('icons/timer.svg'), PomodorosPage, 'P' in available_buttons), 1, 1)
+        g_layout.addWidget(HomeButton('Converter', QIcon('icons/ruler.svg'), ConverterPage, 'C' in available_buttons), 1, 2)
+        g_layout.addWidget(HomeButton('Dictionary', QIcon('icons/bookmark.svg'), DictionaryPage, 'D' in available_buttons), 2, 0)
+        g_layout.addWidget(HomeButton('AI Answerer', QIcon('icons/book.svg'), AIPage, 'A' in available_buttons), 2, 1)
+        g_layout.addWidget(HomeButton('Translator', QIcon('icons/g_translate.svg'), TranslatorPage, 'G' in available_buttons), 2, 2)

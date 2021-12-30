@@ -37,6 +37,8 @@ class LoginPage(QWidget):
         button = QPushButton("Login")
         button.setFixedSize(200, 50)
         button.setObjectName('login')
+        button.clicked.connect(self.login)
+        button.setCursor(Qt.CursorShape.PointingHandCursor)
         self.v_layout.addWidget(button, alignment=Qt.AlignmentFlag.AlignCenter)
 
         self.setup_register_line()
@@ -44,14 +46,14 @@ class LoginPage(QWidget):
     def setup_input_fields(self):
         size = QSize(350, 50)
 
-        email = InputField('Email', "icons/email.svg")
-        email.setFixedSize(size)
-        self.v_layout.addWidget(email, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.email = InputField('Email', "icons/email.svg")
+        self.email.setFixedSize(size)
+        self.v_layout.addWidget(self.email, alignment=Qt.AlignmentFlag.AlignHCenter)
 
-        password = InputField('Password', "icons/lock.svg")
-        password.setFixedSize(size)
-        password.hide_contents(True)
-        self.v_layout.addWidget(password, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.password = InputField('Password', "icons/lock.svg")
+        self.password.setFixedSize(size)
+        self.password.hide_contents(True)
+        self.v_layout.addWidget(self.password, alignment=Qt.AlignmentFlag.AlignHCenter)
 
     def setup_register_line(self):
         register_widget = QWidget()
@@ -72,7 +74,13 @@ class LoginPage(QWidget):
         self.v_layout.addWidget(register_widget, alignment=Qt.AlignmentFlag.AlignHCenter)
 
     def login(self):
-        print("beshr")
+        import controllers.auth as Auth
+        try:
+            Auth.login(self.email.text(), self.password.text())
+            from pages.home import HomePage
+            self.window().navigate_to(HomePage)
+        except Exception as e:
+            QMessageBox.critical(self, 'An error occurred', e.args[0])
 
     def register(self):
         from pages.register import RegisterPage

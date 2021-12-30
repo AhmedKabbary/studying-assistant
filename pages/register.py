@@ -90,10 +90,12 @@ class RegisterPage(QWidget):
 
     def register(self):
         import controllers.auth as Auth
-        #try:
-        Auth.register(self.pic, self.name.text(),  self.email.text(), self.phone.text(), self.password.text(), self.password2.text())
-        #except Exception as e:
-        #    QMessageBox.critical(self, 'An error occurred', e.args[0])
+        try:
+            Auth.register(self.pic, self.name.text(),  self.email.text(), self.phone.text(), self.password.text(), self.password2.text())
+            from pages.login import LoginPage
+            self.window().navigate_to(LoginPage)
+        except Exception as e:
+            QMessageBox.critical(self, 'An error occurred', e.args[0])
 
     def login(self):
         from pages.login import LoginPage
