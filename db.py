@@ -35,6 +35,16 @@ def init():
     		DIFFICULTY 		INTEGER NOT NULL
 		)
     """)
+
+	cursor.execute("""
+	    CREATE TABLE IF NOT EXISTS TASKS
+	    (
+           ID 			     INTEGER PRIMARY KEY AUTOINCREMENT,
+		   TASK              TEXT NOT NULL,
+           CREATION_DATE     TEXT NOT NULL,
+		   GROUP_ID          TEXT NOT NULL
+	    )
+	""")
 	
 	cursor.commit()
 

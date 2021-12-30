@@ -3,6 +3,8 @@ from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 from widgets.dropdown import DropDown
 from widgets.task import TaskWidget
+from datetime import datetime
+import db
 
 
 class TasksPage(QWidget):
@@ -41,7 +43,7 @@ class TasksPage(QWidget):
 
         def add_task():
             d = InputTaskDialog()
-            d.task_added.connect(self.shahd)
+            d.task_added.connect(self.task_added)
             d.exec()
 
         btn = QPushButton()
@@ -53,9 +55,16 @@ class TasksPage(QWidget):
         v_layout.addWidget(
             btn, alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom)
 
-    def shahd(self, task, type):
-        t = TaskWidget(task, False)
-        self.list_layout.addWidget(t)
+        self.load_list()
+
+    def load_list(self):
+        result = db.cursor.execute('SELECT * FROM DICTIONARY')
+
+
+    def task_added(self, task, group_id):
+        db.cursor.execute("INSERT INTO TASKS (TASK,CREATION_DATE,GROUP_ID) VALUES (?, ?, ?)", (task, datetime.now().isoformat(), group_id))
+        db.cursor.commit()
+        self.load_list()
 
 
 class InputTaskDialog(QDialog):

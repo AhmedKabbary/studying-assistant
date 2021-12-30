@@ -45,6 +45,7 @@ class TaskWidget(QFrame):
         else:
             self.check.setIcon(QIcon('icons/unchecked.svg'))
         self.check.setIconSize(QSize(25, 25))
+        self.check.clicked.connect(self.clicked)
         h_layout.addWidget(self.check, alignment=Qt.AlignmentFlag.AlignRight)
 
     def clicked(self):
