@@ -1,20 +1,28 @@
+import PyQt6
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 
+
 class pomo_timer(QFrame):
+    transf = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.setObjectName("f")
         self.setFixedSize(190,190)
+
+        
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.min_30)
+
         self.timer_reset = QTimer(self)
+
         self.lbl = QLabel(self)
         self.lbl.move(50, 55)
         self.lbl.setFixedSize(95, 80)
         self.set_values()
         self.set_text()
+        
 
     def set_text(self):
         text = str(self.minutes).zfill(2)+":"+str(self.seconds).zfill(2)
@@ -59,7 +67,7 @@ class pomo_timer(QFrame):
             self.set_values()
             self.timer_reset.stop()
             self.timer_reset.disconnect()
-            self.timer.start(1000)
+            self.timer.start(10)
 
     def stop_reset(self):
         self.reset()
@@ -81,6 +89,8 @@ class pomo_timer(QFrame):
             self.rest_value = 0
             self.repaint()
             self.timer.stop()
+            self.replay()
+            self.transf.emit()
         self.set_text()
         if self.count == 0:
            self.work_value -= 0.2
@@ -90,6 +100,8 @@ class pomo_timer(QFrame):
            self.repaint()
     
     def paintEvent(self, e):
+        x = 15
+        y = 160
         cg = QConicalGradient()
         cg.setCenter(QPointF(self.rect().center()))
         cg.setAngle(250)
@@ -105,9 +117,9 @@ class pomo_timer(QFrame):
         painter = QPainter(self)
         painter.setPen(QPen(QBrush(cg), 17, Qt.PenStyle.SolidLine, Qt.PenCapStyle.RoundCap))
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.drawArc(QRect(15, 15, 160, 160), 300*16, self.work_value*16)
+        painter.drawArc(QRect(int(x), int(x), int(y), int(y)), 300*16, self.work_value*16)
 
         painter2 = QPainter(self)
         painter2.setPen(QPen(QBrush(cg2), 17,Qt.PenStyle.SolidLine, Qt.PenCapStyle.RoundCap))
         painter2.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter2.drawArc(QRect(15, 15, 160, 160), 240*16, self.rest_value*16)
+        painter2.drawArc(QRect(int(x), int(x), int(y), int(y)), 240*16, self.rest_value*16)

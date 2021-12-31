@@ -38,7 +38,7 @@ QLabel#sl {
 
 QLabel#slf {
   border-radius: 10px;
-  color: #188bdb;
+  border: 2px solid #188bdb;
   background-color: #17191d;
   font-size: 21px;
   padding: 8px;

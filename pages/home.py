@@ -83,4 +83,4 @@ class HomePage(QWidget):
         g_layout.addWidget(HomeButton('Converter', QIcon('icons/ruler.svg'), ConverterPage), 1, 2)
         g_layout.addWidget(HomeButton('Dictionary', QIcon('icons/bookmark.svg'), DictionaryPage), 2, 0)
         g_layout.addWidget(HomeButton('AI Answerer', QIcon('icons/book.svg'), AIPage), 2, 1)
-        g_layout.addWidget(HomeButton('Translator', QIcon('icons/g_translate.svg'), TranslatorPage), 2, 2)
+        g_layout.addWidget(HomeButton('Translator', QIcon('icons/g_translate.svg'),TranslatorPage), 2, 2)
