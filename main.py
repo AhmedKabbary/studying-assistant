@@ -5,15 +5,19 @@ from pages import *
 from controllers import auth
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QAction, QIcon
-from PyQt6.QtWidgets import QApplication, QMainWindow, QMenu, QSystemTrayIcon, QWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QMenu, QSystemTrayIcon, QWidget, QMessageBox
 from widgets.title_bar import TitleBar
+from controllers.translator import TranslatorHandler
 
 app = QApplication(sys.argv)
-app.setQuitOnLastWindowClosed(False)  # app remains active even if the window is closed
+# app remains active even if the window is closed
+app.setQuitOnLastWindowClosed(False)
 
 with open('styles/_app.css') as f:
     css = f.read()
     app.setStyleSheet(css)
+
+auto_translation = False
 
 
 class MainWindow(QMainWindow):
@@ -22,7 +26,8 @@ class MainWindow(QMainWindow):
 
     def __init__(self, app: QApplication):
         super().__init__()
-        self.setWindowFlags(Qt.WindowType.Tool | Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
+        self.setWindowFlags(
+            Qt.WindowType.Tool | Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
         self.adjust_to_bottom_left_side(app)
         self.title_bar = TitleBar()
         self.setMenuWidget(self.title_bar)
@@ -49,7 +54,8 @@ class MainWindow(QMainWindow):
         self.navigate_to(page)
 
     def navigate_to(self, page: Type[QWidget]):
-        self.history.append(type(self.centralWidget()))  # add the current centralWidget type to the history
+        # add the current centralWidget type to the history
+        self.history.append(type(self.centralWidget()))
         instance = page(self)
         self.setCentralWidget(instance)  # then navigate to the new page
         if instance.__class__ not in [HomePage, LoginPage, RegisterPage]:
@@ -73,6 +79,22 @@ class MainWindow(QMainWindow):
 
 db.init()
 
+
+def answered(translated: str):
+    w = QWidget()
+    QMessageBox.warning(w, 'Translation', translated)
+
+
+def translate():
+    if auto_translation:
+        transhandler = TranslatorHandler(
+            app, 'en', 'ar', app.clipboard().text())
+        transhandler.answer.connect(answered)
+        transhandler.start()
+
+
+app.clipboard().dataChanged.connect(translate)
+
 window = MainWindow(app)
 window.show()
 
@@ -85,6 +107,19 @@ menu = QMenu()
 open = QAction("Open")
 open.triggered.connect(window.show)
 menu.addAction(open)
+
+auto = QAction("Turn on Auto Translation")
+
+
+def turn_translation():
+    global auto_translation
+    auto_translation = not auto_translation
+    auto.setText(
+        "Turn off Auto Translation" if auto_translation else "Turn on Auto Translation")
+
+
+auto.triggered.connect(turn_translation)
+menu.addAction(auto)
 
 quit = QAction("Quit")
 quit.triggered.connect(app.quit)

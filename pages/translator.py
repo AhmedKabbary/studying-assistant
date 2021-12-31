@@ -2,6 +2,7 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 import googletrans
+from controllers.translator import TranslatorHandler
 from widgets.dropdown import DropDown
 
 
@@ -64,7 +65,6 @@ class TranslatorPage(QWidget):
         swap.setCursor(Qt.CursorShape.PointingHandCursor)
         swap.clicked.connect(self.swap)
 
-        self.translator = googletrans.Translator()
 
     def swap(self):
         if self.combo1.currentIndex() == 0:
@@ -81,9 +81,13 @@ class TranslatorPage(QWidget):
         del temp
 
     def translate(self):
-        if self.enter_line.text() != '':
-            t_from = self.combo1.currentText()
-            t_to = self.combo2.currentText()
-            res = self.translator.translate(
-                self.enter_line.text(), dest=t_to, src=t_from)
-            self.trans_lbl.setText(res.text)
+        transhandler = TranslatorHandler(self, self.combo1.currentText(),self.combo2.currentText(),self.enter_line.text())
+        transhandler.answer.connect(self.answered)
+        transhandler.crash.connect(self.crash)
+        transhandler.start()
+
+    def answered(self, translated):
+        self.trans_lbl.setText(translated)
+
+    def crash(self):
+        pass
