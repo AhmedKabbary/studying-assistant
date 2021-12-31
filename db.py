@@ -42,7 +42,8 @@ def init():
            ID 			     INTEGER PRIMARY KEY AUTOINCREMENT,
 		   TASK              TEXT NOT NULL,
            CREATION_DATE     TEXT NOT NULL,
-		   GROUP_ID          TEXT NOT NULL
+		   GROUP_ID          TEXT NOT NULL,
+		   CHECKED			 BOOLEAN
 	    )
 	""")
 	

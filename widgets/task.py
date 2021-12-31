@@ -1,5 +1,5 @@
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QMouseEvent
 from PyQt6.QtWidgets import QFrame, QHBoxLayout, QLabel, QPushButton
 
 
@@ -28,6 +28,7 @@ class TaskWidget(QFrame):
 
         self.setObjectName('root')
         self.setFixedSize(350, 45)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
         h_layout = QHBoxLayout(self)
         h_layout.setContentsMargins(20, 5, 25, 5)
@@ -47,6 +48,10 @@ class TaskWidget(QFrame):
         self.check.setIconSize(QSize(25, 25))
         self.check.clicked.connect(self.clicked)
         h_layout.addWidget(self.check, alignment=Qt.AlignmentFlag.AlignRight)
+
+    def mousePressEvent(self, a0: QMouseEvent) -> None:
+        if a0.button() == Qt.MouseButton.LeftButton:
+            self.clicked()
 
     def clicked(self):
         self.checked = not self.checked

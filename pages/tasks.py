@@ -22,9 +22,11 @@ class TasksPage(QWidget):
         v_layout.setContentsMargins(20, 10, 20, 20)
 
         self.type_combo = DropDown(size=QSize(175, 50))
-        entries = ["Shopping", "Home", "Work", "University"]
+        entries = ["Home", "Shopping", "Work", "University"]
         self.type_combo.addItems(entries)
+        self.type_combo.currentIndexChanged.connect(self.type_selected)
         v_layout.addWidget(self.type_combo, alignment=Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignHCenter)
+
 
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
@@ -56,13 +58,25 @@ class TasksPage(QWidget):
             btn, alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom)
 
         self.load_list()
+    
+
+    def type_selected(self):
+        self.load_list()
 
     def load_list(self):
-        result = db.cursor.execute('SELECT * FROM DICTIONARY')
+        for i in reversed(range(self.list_layout.count())):
+            self.list_layout.itemAt(i).widget().deleteLater()
+
+        result = db.cursor.execute('SELECT * FROM TASKS WHERE GROUP_ID = ?', (self.type_combo.currentText(),))
+        for row in result:
+            t = TaskWidget(row[1],row[4])
+            self.list_layout.addWidget(t)
+      
+
 
 
     def task_added(self, task, group_id):
-        db.cursor.execute("INSERT INTO TASKS (TASK,CREATION_DATE,GROUP_ID) VALUES (?, ?, ?)", (task, datetime.now().isoformat(), group_id))
+        db.cursor.execute("INSERT INTO TASKS (TASK, CREATION_DATE, GROUP_ID, CHECKED) VALUES (?, ?, ?, ?)", (task, datetime.now().isoformat(), group_id, False))
         db.cursor.commit()
         self.load_list()
 
@@ -74,6 +88,7 @@ class InputTaskDialog(QDialog):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Add a task')
+        self.setFixedWidth(250)
         self.setStyleSheet("""
             QDialog {
                 background-color: #232931;
@@ -121,14 +136,14 @@ class InputTaskDialog(QDialog):
         group.setTitle('Select Type')
         group_layout = QVBoxLayout(group)
 
-        self.work = QRadioButton('work', group)
+        self.work = QRadioButton('Work', group)
         group_layout.addWidget(self.work)
-        self.home = QRadioButton('home', group)
+        self.home = QRadioButton('Home', group)
         self.home.setChecked(True)
         group_layout.addWidget(self.home)
-        self.shopping = QRadioButton('shopping', group)
+        self.shopping = QRadioButton('Shopping', group)
         group_layout.addWidget(self.shopping)
-        self.university = QRadioButton('university', group)
+        self.university = QRadioButton('University', group)
         group_layout.addWidget(self.university)
 
         v_layout.addWidget(group)
@@ -156,14 +171,14 @@ class InputTaskDialog(QDialog):
 
     def okay(self):
         task = self.task.text()
-        type = 'home'
+        type = 'Home'
         if self.work.isChecked():
-            type = 'work'
+            type = 'Work'
         elif self.home.isChecked():
-            type = 'home'
+            type = 'Home'
         elif self.shopping.isChecked():
-            type = 'shopping'
+            type = 'Shopping'
         elif self.university.isChecked():
-            type = 'university'
+            type = 'University'
         self.task_added.emit(task, type)
         self.close()
