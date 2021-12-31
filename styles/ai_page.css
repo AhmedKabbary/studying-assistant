@@ -1,5 +1,6 @@
 QLineEdit#input_field {
     padding: 8px;
+    color: #EEEEEE;
     border-radius: 5;
     background-color: #393E46;
 }
