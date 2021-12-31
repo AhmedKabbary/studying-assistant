@@ -44,16 +44,16 @@ class DictionaryPage(QWidget):
         v_layout.addWidget(btn, alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom)
 
     def load_grid(self):
-        list = []
-        result = db.cursor.execute('SELECT * FROM DICTIONARY')
-        for row in result:
-            list.append(row)
+        # delete all widgets in the grid
+        for i in reversed(range(self.grid_layout.count())):
+            self.grid_layout.itemAt(i).widget().deleteLater()
 
-        for index, item in enumerate(list):
+        result = db.cursor.execute('SELECT * FROM DICTIONARY')
+        for index, item in enumerate(result):
             r = (index // 2)
             c = 0 if (index % 2 == 0) else 1
             w = WordWidget(item[0], item[1], item[2])
-            w.deleted.connect(self.word_deleted)
+            w.deleted.connect(self.load_grid)
             self.grid_layout.addWidget(w, r, c)
 
     def add_word(self):
@@ -66,11 +66,6 @@ class DictionaryPage(QWidget):
         db.cursor.commit()
         self.load_grid()
 
-    def word_deleted(self):
-        for i in reversed(range(self.grid_layout.count())):
-            self.grid_layout.itemAt(i).widget().deleteLater()
-        self.load_grid()
-
 
 class InputWordDialog(QDialog):
 
@@ -79,6 +74,7 @@ class InputWordDialog(QDialog):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Add a word')
+        self.setFixedWidth(300)
         self.setStyleSheet("""
             QDialog {
                 background-color: #232931;

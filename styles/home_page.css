@@ -23,30 +23,3 @@ QFrame#bottom_container {
 QFrame#line {
     background-color: #393E46;
 }
-
-QPushButton {
-    border: none;
-    background-color: transparent;
-}
-
-QPushButton#page_button {
-    background-color: #393E46;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-
-QPushButton#page_button:hover {
-    border: 1px solid #00ADB5;
-}
-
-QFrame#line {
-    background-color: #393e46;
-}
-
-QLabel#page_button_caption {
-    color: #EEEEEE;
-    font-size: 14px;
-    font-weight: bold;
-}

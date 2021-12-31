@@ -28,6 +28,7 @@ class InputField(QFrame):
 
         h_layout = QHBoxLayout(self)
         h_layout.setSpacing(15)
+        h_layout.setContentsMargins(16, 0, 16, 0)
 
         btn = QPushButton()
         btn.setObjectName('btn')
@@ -45,3 +46,6 @@ class InputField(QFrame):
             self.input.setEchoMode(QLineEdit.EchoMode.Password)
         else:
             self.input.setEchoMode(QLineEdit.EchoMode.Normal)
+
+    def text(self):
+        return self.input.text()

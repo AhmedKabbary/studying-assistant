@@ -4,11 +4,12 @@ cursor = sqlite3.connect('db.sqlite')
 
 
 def init():
-	cursor.execute("""
+    cursor.execute("""
 		CREATE TABLE IF NOT EXISTS USER
       	(
         	ID				INTEGER PRIMARY KEY AUTOINCREMENT,
         	IS_ADMIN 		BOOLEAN NOT NULL,
+			PICTURE			TEXT,
         	NAME 			TEXT NOT NULL,
 			EMAIL 			TEXT NOT NULL,
 			PASSWORD 		TEXT NOT NULL,
@@ -16,8 +17,8 @@ def init():
 			PERMISSIONS 	TEXT NOT NULL
 		)
     """)
-	
-	cursor.execute("""
+
+    cursor.execute("""
     	CREATE TABLE IF NOT EXISTS POMODOROS
      	(
 			ID 				INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,8 +27,8 @@ def init():
 			DONE 			BOOLEAN
 		)
 	""")
-	
-	cursor.execute("""
+
+    cursor.execute("""
   		CREATE TABLE IF NOT EXISTS DICTIONARY
     	(
 			ID 				INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,7 +37,7 @@ def init():
 		)
     """)
 
-	cursor.execute("""
+    cursor.execute("""
 	    CREATE TABLE IF NOT EXISTS TASKS
 	    (
            ID 			     INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,8 +47,8 @@ def init():
 		   CHECKED			 BOOLEAN
 	    )
 	""")
-	
-	cursor.commit()
+
+    cursor.commit()
 
 
 def is_table_empty(table_name):

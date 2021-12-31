@@ -10,6 +10,7 @@ QLabel#subtitle {
 }
 
 QPushButton#login{
+    border: none;
     background-color: #185ADB;
     color: white;
     font-weight: bold;
@@ -28,4 +29,8 @@ QPushButton#register{
     color: #188BDB;
     font-weight: bold;
     font-size: 14px;
+}
+
+QWidget {
+    color: white;
 }
