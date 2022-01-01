@@ -23,6 +23,7 @@ class TranslatorPage(QWidget):
         v_layout.addWidget(self.combo1, alignment=Qt.AlignmentFlag.AlignTop)
 
         self.enter_line = QLineEdit()
+        self.enter_line.setFixedHeight(200)
         self.enter_line.setPlaceholderText('Type here...')
         self.enter_line.setObjectName('LineToTranslate')
         self.enter_line.textChanged.connect(self.translate)
@@ -41,9 +42,7 @@ class TranslatorPage(QWidget):
 
         self.trans_lbl = QLabel("Translation")
         self.trans_lbl.setObjectName('label')
-        # translation.setFixedSize(400,300)
-        v2_layout.addWidget(
-            self.trans_lbl, alignment=Qt.AlignmentFlag.AlignTop)
+        v2_layout.addWidget(self.trans_lbl, alignment=Qt.AlignmentFlag.AlignTop)
 
         # add languages to ComboBox
         languages = list(googletrans.LANGUAGES.values())
@@ -65,7 +64,6 @@ class TranslatorPage(QWidget):
         swap.setCursor(Qt.CursorShape.PointingHandCursor)
         swap.clicked.connect(self.swap)
 
-
     def swap(self):
         if self.combo1.currentIndex() == 0:
             temp = 21
@@ -81,7 +79,7 @@ class TranslatorPage(QWidget):
         del temp
 
     def translate(self):
-        transhandler = TranslatorHandler(self, self.combo1.currentText(),self.combo2.currentText(),self.enter_line.text())
+        transhandler = TranslatorHandler(self, self.combo1.currentText(), self.combo2.currentText(), self.enter_line.text())
         transhandler.answer.connect(self.answered)
         transhandler.crash.connect(self.crash)
         transhandler.start()

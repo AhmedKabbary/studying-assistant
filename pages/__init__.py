@@ -6,4 +6,6 @@ from pages.converter import ConverterPage
 from pages.dictionary import DictionaryPage
 from pages.translator import TranslatorPage
 from pages.ai_answer import AIPage
+from pages.admin import AdminPage
+from pages.profile import ProfilePage
 from pages.home import HomePage

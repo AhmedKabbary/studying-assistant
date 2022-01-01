@@ -3,24 +3,25 @@ from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 from widgets.image import ImageWidget
 from widgets.input_field import InputField
+import controllers.auth as Auth
 
 
-class RegisterPage(QWidget):
+class ProfilePage(QWidget):
 
     url = 'pic.jpg'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.setWindowTitle('Register')
+        self.setWindowTitle('Profile')
         self.window().setStyleSheet('background-color: #232931')
 
-        with open('styles/register_page.css') as f:
+        with open('styles/profile_page.css') as f:
             css = f.read()
             self.setStyleSheet(css)
 
         self.v_layout = QVBoxLayout(self)
         self.v_layout.setSpacing(10)
-        self.v_layout.setContentsMargins(25, 0, 25, 15)
+        self.v_layout.setContentsMargins(25, 25, 25, 25)
 
         self.setup_pic()
 
@@ -30,22 +31,18 @@ class RegisterPage(QWidget):
 
         self.v_layout.addStretch()
 
-        register = QPushButton("Register")
+        register = QPushButton("Save")
         register.setFixedSize(200, 50)
-        register.setObjectName('register')
-        register.clicked.connect(self.register)
+        register.setObjectName('save')
+        register.clicked.connect(self.save)
         register.setCursor(Qt.CursorShape.PointingHandCursor)
         self.v_layout.addWidget(register, alignment=Qt.AlignmentFlag.AlignHCenter)
-
-        self.v_layout.addSpacing(5)
-
-        self.setup_login_line()
 
     def setup_pic(self):
         self.image = ImageWidget()
         self.image.setFixedSize(100, 100)
         self.image.set_radius(50)
-        self.image.set_image('pic.jpg')
+        self.image.set_image(Auth.user[2])
         self.image.setCursor(Qt.CursorShape.PointingHandCursor)
         self.image.clicked.connect(self.browse_files)
         self.v_layout.addWidget(self.image, alignment=Qt.AlignmentFlag.AlignHCenter)
@@ -55,56 +52,38 @@ class RegisterPage(QWidget):
 
         self.name = InputField('Name', "icons/person.svg")
         self.name.setFixedSize(size)
+        self.name.set_text(Auth.user[3])
         self.v_layout.addWidget(self.name, alignment=Qt.AlignmentFlag.AlignHCenter)
 
         self.email = InputField('Email', "icons/email.svg")
         self.email.setFixedSize(size)
+        self.email.set_text(Auth.user[4])
         self.v_layout.addWidget(self.email, alignment=Qt.AlignmentFlag.AlignHCenter)
 
         self.phone = InputField('Phone', "icons/phone.svg")
         self.phone.setFixedSize(size)
+        self.phone.set_text(Auth.user[6])
         self.v_layout.addWidget(self.phone, alignment=Qt.AlignmentFlag.AlignHCenter)
 
         self.password = InputField('Password', "icons/lock.svg")
         self.password.setFixedSize(size)
+        self.password.set_text(Auth.user[5])
         self.password.hide_contents(True)
         self.v_layout.addWidget(self.password, alignment=Qt.AlignmentFlag.AlignHCenter)
 
         self.password2 = InputField('Confirm Password', "icons/lock.svg")
         self.password2.setFixedSize(size)
+        self.password2.set_text(Auth.user[5])
         self.password2.hide_contents(True)
         self.v_layout.addWidget(self.password2, alignment=Qt.AlignmentFlag.AlignHCenter)
 
-    def setup_login_line(self):
-        login_widget = QWidget()
-        h_layout = QHBoxLayout(login_widget)
-        h_layout.setContentsMargins(0, 0, 0, 0)
-        h_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        lbl1 = QLabel('Already have an account?')
-        lbl1.setObjectName('down')
-        h_layout.addWidget(lbl1)
-
-        btn2 = QPushButton('Login here')
-        btn2.setObjectName('login')
-        btn2.clicked.connect(self.login)
-        btn2.setCursor(Qt.CursorShape.PointingHandCursor)
-        h_layout.addWidget(btn2)
-
-        self.v_layout.addWidget(login_widget, alignment=Qt.AlignmentFlag.AlignHCenter)
-
-    def register(self):
+    def save(self):
         import controllers.auth as Auth
         try:
-            Auth.register(self.url, self.name.text(),  self.email.text(), self.phone.text(), self.password.text(), self.password2.text())
-            from pages.login import LoginPage
-            self.window().navigate_to(LoginPage)
+            Auth.update(self.url, self.name.text(),  self.email.text(), self.phone.text(), self.password.text(), self.password2.text())
+            self.window().back()
         except Exception as e:
             QMessageBox.critical(self, 'An error occurred', e.args[0])
-
-    def login(self):
-        from pages.login import LoginPage
-        self.window().navigate_to(LoginPage)
 
     def browse_files(self):
         url, _ = QFileDialog.getOpenFileUrl(self, caption="Select image", filter="Images (*.jpg *.png)")

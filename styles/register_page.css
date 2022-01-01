@@ -23,7 +23,3 @@ QPushButton#login{
     font-weight: bold;
     font-size: 14px;
 }
-
-QWidget {
-    color: white;
-}

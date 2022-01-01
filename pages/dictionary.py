@@ -86,6 +86,7 @@ class InputWordDialog(QDialog):
                 background-color: #393E46;
                 border-radius: 5;
                 padding: 8px;
+                color: #EEEEEE;
             }
 
             QGroupBox {
@@ -104,10 +105,6 @@ class InputWordDialog(QDialog):
             }
 
             QRadioButton {
-                color: #EEEEEE;
-            }
-
-            QLineEdit {
                 color: #EEEEEE;
             }
         """)
@@ -141,7 +138,7 @@ class InputWordDialog(QDialog):
         h_layout.setContentsMargins(0, 0, 0, 0)
 
         btn1 = QPushButton()
-        btn1.setText("OK")
+        btn1.setText("SAVE")
         btn1.setFixedHeight(30)
         btn1.clicked.connect(self.okay)
         btn1.setCursor(Qt.CursorShape.PointingHandCursor)

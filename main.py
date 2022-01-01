@@ -58,23 +58,27 @@ class MainWindow(QMainWindow):
         self.history.append(type(self.centralWidget()))
         instance = page(self)
         self.setCentralWidget(instance)  # then navigate to the new page
-        if instance.__class__ not in [HomePage, LoginPage, RegisterPage]:
-            self.title_bar.setWindowTitle(instance.windowTitle())
-            self.title_bar.show_back_btn(True)
-        else:
-            self.title_bar.setWindowTitle(None)
-            self.title_bar.show_back_btn(False)
+        self.refresh_title_bar_buttons(instance)
 
     def back(self):
         page = self.history.pop()  # get and remove the last page from the history
         instance = page(self)
         self.setCentralWidget(instance)
-        if instance.__class__ not in [HomePage, LoginPage, RegisterPage]:
-            self.title_bar.setWindowTitle(page.windowTitle())
-            self.title_bar.show_back_btn(True)
-        else:
+        self.refresh_title_bar_buttons(instance)
+
+    def refresh_title_bar_buttons(self, instance):
+        if instance.__class__ in [LoginPage, RegisterPage]:
             self.title_bar.setWindowTitle(None)
             self.title_bar.show_back_btn(False)
+            self.title_bar.show_logout_btn(False)
+        elif instance.__class__ == HomePage:
+            self.title_bar.setWindowTitle(instance.windowTitle())
+            self.title_bar.show_back_btn(False)
+            self.title_bar.show_logout_btn(True)
+        else:
+            self.title_bar.setWindowTitle(instance.windowTitle())
+            self.title_bar.show_back_btn(True)
+            self.title_bar.show_logout_btn(False)
 
 
 db.init()
@@ -108,14 +112,14 @@ open = QAction("Open")
 open.triggered.connect(window.show)
 menu.addAction(open)
 
-auto = QAction("Turn on Auto Translation")
+auto = QAction("Turn on auto translation")
 
 
 def turn_translation():
     global auto_translation
     auto_translation = not auto_translation
     auto.setText(
-        "Turn off Auto Translation" if auto_translation else "Turn on Auto Translation")
+        "Turn off auto translation" if auto_translation else "Turn on auto translation")
 
 
 auto.triggered.connect(turn_translation)

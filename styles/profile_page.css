@@ -1,0 +1,12 @@
+QWidget {
+    color: white;
+}
+
+QPushButton#save{
+    border: none;
+    background-color: #185ADB;
+    color: white;
+    font-weight: bold;
+    border-radius: 25;
+    font-size: 18px;
+}

@@ -1,32 +1,32 @@
 {
     "Length": {
-        "standard_unit": "meter",
+        "standard_unit": "m",
         "units": {
-            "nanometer": {
+            "nm": {
                 "formula_to": "{} * 1000000000",
                 "formula_from": "{} / 1000000000"
             },
-            "micrometer": {
-                "formula_to": "{} * 1000000 ",
-                "formula_from": "{} / 1000000 "
+            "μm": {
+                "formula_to": "{} * 1000000",
+                "formula_from": "{} / 1000000"
             },
-            "millimeter": {
+            "mm": {
                 "formula_to": "{} * 1000",
                 "formula_from": "{} / 1000"
             },
-            "decimeter": {
+            "dm": {
                 "formula_to": "{} * 10",
                 "formula_from": "{} / 10"
             },
-            "centimeter": {
+            "cm": {
                 "formula_to": "{} * 100",
-                "fromula_from": "{} / 100"
+                "formula_from": "{} / 100"
             },
-            "meter": {
+            "m": {
                 "formula_to": "{}",
                 "formula_from": "{}"
             },
-            "kilometer": {
+            "km": {
                 "formula_to": "{} / 1000",
                 "formula_from": "{} * 1000"
             },
@@ -49,19 +49,19 @@
         }
     },
     "Weight": {
-        "standard_unit": "gram",
+        "standard_unit": "g",
         "units": {
-            "milligram": {
+            "mg": {
                 "formula_to": "{} * 1000",
                 "formula_from": "{} / 1000"
             },
-            "gram": {
+            "g": {
                 "formula_to": "{}",
                 "formula_from": "{}"
             },
-            "kilogram": {
+            "kg": {
                 "formula__to": "{} * 0.001",
-                "formula_from": "{} / 0.001 "
+                "formula_from": "{} / 0.001"
             },
             "tonne": {
                 "formula_to": "{} * 0.000001",
@@ -81,7 +81,7 @@
                 "formula_from": "{} * 3110400000"
             },
             "decade": {
-                "formula_to": "{} / 311040000 ",
+                "formula_to": "{} / 311040000",
                 "formula_from": "{} * 311040000"
             },
             "year": {
@@ -89,30 +89,30 @@
                 "formula_from": "{} * 31104000"
             },
             "month": {
-                "formula_to": "{} / 2592000 ",
-                "formula_from": "{} * 2592000 "
+                "formula_to": "{} / 2592000",
+                "formula_from": "{} * 2592000"
             },
             "week": {
                 "formula_to": "{} / 604800",
                 "formula_from": "{} * 604800"
             },
             "day": {
-                "formula_to": "{} / 86400 ",
-                "formula_from": "{} * 86400 "
+                "formula_to": "{} / 86400",
+                "formula_from": "{} * 86400"
             },
             "hour": {
                 "formula_to": "{} / 3600",
                 "formula_from": "{} * 3600"
             },
-            "minute": {
+            "min": {
                 "formula_to": "{} / 60",
-                "formula_from": "{} * 60 "
+                "formula_from": "{} * 60"
             },
-            "second": {
+            "sec": {
                 "formula_to": "{}",
                 "formula_from": "{}"
             },
-            "millisecond": {
+            "ms": {
                 "formula_to": "{} * 1000",
                 "formula_from": "{} / 1000"
             }
@@ -187,17 +187,17 @@
         }
     },
     "Temperature": {
-        "standard_unit": "kelvin",
+        "standard_unit": "k",
         "units": {
-            "celsuis": {
+            "C": {
                 "formula_to": "{} - 273.15",
                 "formula_from": "{} + 273.15"
             },
-            "fahrenheit": {
+            "F": {
                 "formula_to": "({} - 32) * 5/9 + 273.15",
                 "formula_from": "({} - 273.15) * 9/5 + 32"
             },
-            "kelvin": {
+            "K": {
                 "formula_to": "{}",
                 "formula_from": "{}"
             }
@@ -224,11 +224,11 @@
             },
             "cm²": {
                 "formula_to": "{} * 10000",
-                "formula_from": "{} / 10000 "
+                "formula_from": "{} / 10000"
             },
             "mm²": {
-                "formula_to": "{} * 1000000 ",
-                "formula_from": "{} / 1000000 "
+                "formula_to": "{} * 1000000",
+                "formula_from": "{} / 1000000"
             }
         }
     },
@@ -264,19 +264,19 @@
                 "formula_to": "{}",
                 "formula_from": "{}"
             },
-            "kilobyte": {
+            "KB": {
                 "formula_to": "{} / 1024",
                 "formula_from": "{} * 1024"
             },
-            "megabyte": {
+            "MB": {
                 "formula_to": "{} / 1048576",
                 "formula_from": "{} * 1048576"
             },
-            "gegabyte": {
+            "GB": {
                 "formula_to": "{} / 1073741824",
                 "formula_from": "{} * 1073741824"
             },
-            "terabyte": {
+            "TB": {
                 "formula_to": "{} / (1073741824 * 1024)",
                 "formula_from": "{} * (1073741824 * 1024)"
             }

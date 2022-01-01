@@ -1,0 +1,8 @@
+QLabel#account_lbl {
+    border-radius: 5;
+    background-color: #393E46;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px;
+}

@@ -9,9 +9,18 @@ QLabel#email {
     color: #A9A9A9;
 }
 
-QLabel#role {
+QPushButton#role_admin {
+    border: none;
+    font-size: 14px;
+    color: #00ADB5;
+    background-color: transparent;
+}
+
+QPushButton#role_user {
+    border: none;
     font-size: 14px;
     color: #A9A9A9;
+    background-color: transparent;
 }
 
 QFrame#bottom_container {

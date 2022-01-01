@@ -45,6 +45,7 @@ class ConverterPage(QWidget):
 
         self.from_combo = DropDown(size=QSize(100, 50))
         self.from_combo.addItems(list(self.units))
+        self.from_combo.currentTextChanged.connect(self.do_action)
         h_layout.addWidget(self.from_combo)
 
         h_layout.addStretch()
@@ -55,7 +56,7 @@ class ConverterPage(QWidget):
         swap.clicked.connect(self.swap)
         swap.setIcon(QIcon('icons/swap_h.svg'))
         swap.setIconSize(QSize(35, 35))
-        swap.setCursor(Qt.CursorShape.PointingHandCursor)    
+        swap.setCursor(Qt.CursorShape.PointingHandCursor)
         h_layout.addWidget(
             swap, alignment=Qt.AlignmentFlag.AlignCenter)
 
@@ -63,6 +64,7 @@ class ConverterPage(QWidget):
 
         self.to_combo = DropDown(size=QSize(100, 50))
         self.to_combo.addItems(list(self.units))
+        self.to_combo.currentTextChanged.connect(self.do_action)
         h_layout.addWidget(self.to_combo)
 
         self.v_layout.addWidget(w)

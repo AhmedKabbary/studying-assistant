@@ -47,5 +47,8 @@ class InputField(QFrame):
         else:
             self.input.setEchoMode(QLineEdit.EchoMode.Normal)
 
+    def set_text(self, text):
+        self.input.setText(text)
+
     def text(self):
         return self.input.text()
