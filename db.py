@@ -23,9 +23,9 @@ def init():
      	(
 			ID 				INTEGER PRIMARY KEY AUTOINCREMENT,
 			DESCRIPTION 	TEXT NOT NULL,
-      		CREATION_DATE 	TEXT NOT NULL,
-			DONE 			BOOLEAN
+      		CREATION_DATE 	TEXT NOT NULL
 		)
+		
 	""")
 
     cursor.execute("""
