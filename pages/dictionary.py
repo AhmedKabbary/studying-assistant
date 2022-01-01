@@ -31,8 +31,6 @@ class DictionaryPage(QWidget):
         self.grid_layout = QGridLayout(w)
         self.grid_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        self.load_grid()
-
         v_layout.addWidget(scroll)
         scroll.setWidget(w)
 
@@ -43,6 +41,8 @@ class DictionaryPage(QWidget):
         btn.clicked.connect(self.add_word)
         btn.setCursor(Qt.CursorShape.PointingHandCursor)
         v_layout.addWidget(btn, alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom)
+
+        self.load_grid()
 
     def load_grid(self):
         # delete all widgets in the grid

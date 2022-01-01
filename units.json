@@ -14,13 +14,13 @@
                 "formula_to": "{} * 1000",
                 "formula_from": "{} / 1000"
             },
-            "dm": {
-                "formula_to": "{} * 10",
-                "formula_from": "{} / 10"
-            },
             "cm": {
                 "formula_to": "{} * 100",
                 "formula_from": "{} / 100"
+            },
+            "dm": {
+                "formula_to": "{} * 10",
+                "formula_from": "{} / 10"
             },
             "m": {
                 "formula_to": "{}",
