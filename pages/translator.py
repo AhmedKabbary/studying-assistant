@@ -92,7 +92,7 @@ class TranslatorPage(QWidget):
         history.clicked.connect(self.show_history)
         v2_layout.addWidget(history)
 
-        self.v_layout.addWidget(frame, stretch=1.5)
+        self.v_layout.addWidget(frame, stretch=1)
 
     def swap(self):
         if self.combo1.currentIndex() == 0:

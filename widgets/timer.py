@@ -117,9 +117,9 @@ class pomo_timer(QFrame):
         painter = QPainter(self)
         painter.setPen(QPen(QBrush(cg), 17, Qt.PenStyle.SolidLine, Qt.PenCapStyle.RoundCap))
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.drawArc(QRect(int(x), int(x), int(y), int(y)), 300*16, self.work_value*16)
+        painter.drawArc(QRect(int(x), int(x), int(y), int(y)), int(300*16), int(self.work_value*16))
 
         painter2 = QPainter(self)
         painter2.setPen(QPen(QBrush(cg2), 17,Qt.PenStyle.SolidLine, Qt.PenCapStyle.RoundCap))
         painter2.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter2.drawArc(QRect(int(x), int(x), int(y), int(y)), 240*16, self.rest_value*16)
+        painter2.drawArc(QRect(int(x), int(x), int(y), int(y)), int(240*16), int(self.rest_value*16))
