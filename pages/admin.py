@@ -159,15 +159,15 @@ class AccountDialog(QDialog):
 
         if self.p_t.isChecked():
             permissions.append('T')
-        elif self.p_p.isChecked():
+        if self.p_p.isChecked():
             permissions.append('P')
-        elif self.p_c.isChecked():
+        if self.p_c.isChecked():
             permissions.append('C')
-        elif self.p_d.isChecked():
+        if self.p_d.isChecked():
             permissions.append('D')
-        elif self.p_a.isChecked():
+        if self.p_a.isChecked():
             permissions.append('A')
-        elif self.p_g.isChecked():
+        if self.p_g.isChecked():
             permissions.append('G')
 
         import db
