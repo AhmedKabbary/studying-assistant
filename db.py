@@ -8,7 +8,7 @@ def init():
 		CREATE TABLE IF NOT EXISTS USER
       	(
         	ID				INTEGER PRIMARY KEY AUTOINCREMENT,
-        	IS_ADMIN 		BOOLEAN,
+        	IS_ADMIN 		INTEGER NOT NULL,
 			PICTURE			TEXT,
         	NAME 			TEXT NOT NULL,
 			EMAIL 			TEXT NOT NULL,
@@ -23,7 +23,8 @@ def init():
      	(
 			ID 				INTEGER PRIMARY KEY AUTOINCREMENT,
 			DESCRIPTION 	TEXT NOT NULL,
-      		CREATION_DATE 	TEXT NOT NULL
+      		CREATION_DATE 	TEXT NOT NULL,
+			USER_ID			INTEGER NOT NULL
 		)
 		
 	""")
@@ -33,18 +34,32 @@ def init():
     	(
 			ID 				INTEGER PRIMARY KEY AUTOINCREMENT,
     		WORD 			TEXT NOT NULL,
-    		DIFFICULTY 		INTEGER NOT NULL
+    		DIFFICULTY 		INTEGER NOT NULL,
+			USER_ID			INTEGER NOT NULL
 		)
     """)
 
     cursor.execute("""
 	    CREATE TABLE IF NOT EXISTS TASKS
 	    (
-           ID 			     INTEGER PRIMARY KEY AUTOINCREMENT,
-		   TASK              TEXT NOT NULL,
-           CREATION_DATE     TEXT NOT NULL,
-		   GROUP_ID          TEXT NOT NULL,
-		   CHECKED			 BOOLEAN
+           	ID 			    INTEGER PRIMARY KEY AUTOINCREMENT,
+		   	TASK            TEXT NOT NULL,
+           	CREATION_DATE   TEXT NOT NULL,
+		   	GROUP_ID        TEXT NOT NULL,
+		   	CHECKED			INTEGER NOT NULL,
+			USER_ID			INTEGER NOT NULL
+	    )
+	""")
+
+    cursor.execute("""
+	    CREATE TABLE IF NOT EXISTS TRANSLATION
+	    (
+           	ID 			    INTEGER PRIMARY KEY AUTOINCREMENT,
+		   	SENTENCE        TEXT NOT NULL,
+           	TRANSLATION     TEXT NOT NULL,
+		   	ORIGIN          TEXT NOT NULL,
+			DESTINATION		TEXT NOT NULL,
+			USER_ID			INTEGER NOT NULL
 	    )
 	""")
 

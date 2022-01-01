@@ -1,6 +1,9 @@
-QFrame#button_frame {
-    background-color: #393E46;
+QFrame#top_frame {
+    background-color: #232931;
+}
 
+QFrame#bottom_frame {
+    background-color: #393E46;
 }
 
 QPushButton#swap_button{
@@ -20,4 +23,11 @@ QLabel#label{
     border: none;
     padding: 8px;
     color: #EEEEEE;
+}
+
+QPushButton#show_history {
+    border: none;
+    color: #00ADB5;
+    font-weight: bold;
+    background-color: transparent;
 }

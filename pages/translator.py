@@ -1,9 +1,11 @@
+import db
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 import googletrans
 from controllers.translator import TranslatorHandler
 from widgets.dropdown import DropDown
+import controllers.auth as Auth
 
 
 class TranslatorPage(QWidget):
@@ -16,33 +18,12 @@ class TranslatorPage(QWidget):
             css = f.read()
             self.setStyleSheet(css)
 
-        v_layout = QVBoxLayout(self)
-        v_layout.setContentsMargins(0, 0, 0, 0)
+        self.v_layout = QVBoxLayout(self)
+        self.v_layout.setContentsMargins(0, 0, 0, 0)
 
-        self.combo1 = DropDown(size=QSize(200, 40), border=False)
-        v_layout.addWidget(self.combo1, alignment=Qt.AlignmentFlag.AlignTop)
+        self.setup_top_frame()
 
-        self.enter_line = QLineEdit()
-        self.enter_line.setFixedHeight(200)
-        self.enter_line.setPlaceholderText('Type here...')
-        self.enter_line.setObjectName('LineToTranslate')
-        self.enter_line.textChanged.connect(self.translate)
-        v_layout.addWidget(
-            self.enter_line, alignment=Qt.AlignmentFlag.AlignTop)
-
-        frame = QFrame()
-        frame.setFixedSize(400, 300)
-        frame.setObjectName('button_frame')
-        v_layout.addWidget(frame, alignment=Qt.AlignmentFlag.AlignBottom)
-
-        v2_layout = QVBoxLayout(frame)
-
-        self.combo2 = DropDown(size=QSize(200, 40), border=False)
-        v2_layout.addWidget(self.combo2, alignment=Qt.AlignmentFlag.AlignTop)
-
-        self.trans_lbl = QLabel("Translation")
-        self.trans_lbl.setObjectName('label')
-        v2_layout.addWidget(self.trans_lbl, alignment=Qt.AlignmentFlag.AlignTop)
+        self.setup_bottom_frame()
 
         # add languages to ComboBox
         languages = list(googletrans.LANGUAGES.values())
@@ -56,13 +37,62 @@ class TranslatorPage(QWidget):
         self.combo2.setCurrentIndex(3)
 
         swap = QPushButton(self)
-        swap.move(340, 225)
+        swap.move(340, 250)
         swap.setFixedSize(40, 50)
         swap.setObjectName('swap_button')
         swap.setIcon(QIcon('icons/swap_v.svg'))
         swap.setIconSize(QSize(35, 35))
         swap.setCursor(Qt.CursorShape.PointingHandCursor)
         swap.clicked.connect(self.swap)
+
+    def setup_top_frame(self):
+        frame = QFrame()
+        frame.setFixedWidth(400)
+        frame.setObjectName('top_frame')
+
+        v2_layout = QVBoxLayout(frame)
+
+        self.combo1 = DropDown(size=QSize(200, 40), border=False)
+        v2_layout.addWidget(self.combo1)
+
+        v2_layout.addStretch()
+
+        self.enter_line = QLineEdit()
+        self.enter_line.setPlaceholderText('Type here...')
+        self.enter_line.setObjectName('LineToTranslate')
+        self.enter_line.returnPressed.connect(self.translate)
+        v2_layout.addWidget(self.enter_line)
+
+        v2_layout.addStretch()
+
+        self.v_layout.addWidget(frame, stretch=1)
+
+    def setup_bottom_frame(self):
+        frame = QFrame()
+        frame.setFixedWidth(400)
+        frame.setObjectName('bottom_frame')
+
+        v2_layout = QVBoxLayout(frame)
+
+        self.combo2 = DropDown(size=QSize(200, 40), border=False)
+        v2_layout.addWidget(self.combo2)
+
+        v2_layout.addStretch()
+
+        self.trans_lbl = QLabel("Translation")
+        self.trans_lbl.setObjectName('label')
+        v2_layout.addWidget(self.trans_lbl)
+
+        v2_layout.addStretch()
+
+        history = QPushButton(self)
+        history.setText('SHOW HISTORY')
+        history.setObjectName('show_history')
+        history.setCursor(Qt.CursorShape.PointingHandCursor)
+        history.clicked.connect(self.show_history)
+        v2_layout.addWidget(history)
+
+        self.v_layout.addWidget(frame, stretch=1.5)
 
     def swap(self):
         if self.combo1.currentIndex() == 0:
@@ -86,6 +116,36 @@ class TranslatorPage(QWidget):
 
     def answered(self, translated):
         self.trans_lbl.setText(translated)
+        db.cursor.execute("INSERT INTO TRANSLATION (SENTENCE, TRANSLATION, ORIGIN, DESTINATION, USER_ID) VALUES (?, ?, ?, ?, ?)",
+                          (self.enter_line.text(), translated, self.combo1.currentText(), self.combo2.currentText(), Auth.user[0]))
+        db.cursor.commit()
 
     def crash(self):
         pass
+
+    def show_history(self):
+        d = QDialog()
+        d.setFixedSize(400, 300)
+        d.setWindowTitle('Translation history')
+        d.setStyleSheet("background-color: #232931;")
+
+        scroll = QScrollArea(d)
+        scroll.setWidgetResizable(True)
+        scroll.setAlignment(Qt.AlignmentFlag.AlignTop)
+        scroll.setFixedSize(400, 300)
+        scroll.verticalScrollBar().hide()
+        scroll.horizontalScrollBar().hide()
+        scroll.setStyleSheet('border: none;')
+        w = QWidget()
+        self.list_layout = QVBoxLayout(w)
+        self.list_layout.setSpacing(15)
+        self.list_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+        scroll.setWidget(w)
+
+        res = db.cursor.execute('SELECT * FROM TRANSLATION WHERE USER_ID = ?', (Auth.user[0],))
+        for row in res:
+            l = QLabel(str(row[1]) + '\n' + str(row[2]))
+            l.setStyleSheet('color: #EEEEEE;')
+            self.list_layout.addWidget(l)
+
+        d.exec()

@@ -4,6 +4,7 @@ from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 from widgets.timer import pomo_timer
 from datetime import datetime
+import controllers.auth as Auth
 
 
 class Item(QLabel):
@@ -153,7 +154,7 @@ class PomodorosPage(QWidget):
         for i in reversed(range(self.vbox_scrl.count())):
             self.vbox_scrl.itemAt(i).widget().deleteLater()
             
-        result = db.cursor.execute('SELECT * FROM POMODOROS')
+        result = db.cursor.execute('SELECT * FROM POMODOROS WHERE USER_ID = ?', (Auth.user[0],))
         for row in result:
             lbl_task = Item(row[0])
             lbl_task.setText(row[1])
@@ -206,8 +207,8 @@ class PomodorosPage(QWidget):
         d.exec()
 
     def task_added(self, task):
-        db.cursor.execute("INSERT INTO POMODOROS (DESCRIPTION, CREATION_DATE) VALUES (?, ?)",
-                          (task, datetime.now().isoformat()))
+        db.cursor.execute("INSERT INTO POMODOROS (DESCRIPTION, CREATION_DATE, USER_ID) VALUES (?, ?, ?)",
+                          (task, datetime.now().isoformat(), Auth.user[0]))
         db.cursor.commit()
         self.load_list()
 

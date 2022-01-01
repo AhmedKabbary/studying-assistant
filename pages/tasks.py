@@ -5,6 +5,8 @@ from widgets.dropdown import DropDown
 from widgets.task import TaskWidget
 from datetime import datetime
 import db
+import controllers.auth as Auth
+
 
 
 class TasksPage(QWidget):
@@ -65,13 +67,14 @@ class TasksPage(QWidget):
         for i in reversed(range(self.list_layout.count())):
             self.list_layout.itemAt(i).widget().deleteLater()
 
-        result = db.cursor.execute('SELECT * FROM TASKS WHERE GROUP_ID = ?', (self.type_combo.currentText(),))
+        result = db.cursor.execute('SELECT * FROM TASKS WHERE USER_ID = ? AND GROUP_ID = ?', (Auth.user[0], self.type_combo.currentText()))
         for row in result:
-            t = TaskWidget(row[1], row[4])
+            t = TaskWidget(row[0], row[1], row[4])
+            t.deleted.connect(self.load_list)
             self.list_layout.addWidget(t)
 
     def task_added(self, task, group_id):
-        db.cursor.execute("INSERT INTO TASKS (TASK, CREATION_DATE, GROUP_ID, CHECKED) VALUES (?, ?, ?, ?)", (task, datetime.now().isoformat(), group_id, False))
+        db.cursor.execute("INSERT INTO TASKS (TASK, CREATION_DATE, GROUP_ID, CHECKED, USER_ID) VALUES (?, ?, ?, ?, ?)", (task, datetime.now().isoformat(), group_id, 0, Auth.user[0]))
         db.cursor.commit()
         self.load_list()
 

@@ -1,11 +1,15 @@
-from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QIcon, QMouseEvent
-from PyQt6.QtWidgets import QFrame, QHBoxLayout, QLabel, QPushButton
+from PyQt6.QtCore import QPoint, QSize, Qt, pyqtSignal
+from PyQt6.QtGui import QAction, QIcon, QMouseEvent
+from PyQt6.QtWidgets import QFrame, QHBoxLayout, QLabel, QMenu, QPushButton
 
 
 class TaskWidget(QFrame):
-    def __init__(self, text, checked):
+
+    deleted = pyqtSignal()
+
+    def __init__(self, id, text, checked):
         super().__init__()
+        self.id = id
         self.checked = checked
 
         self.setStyleSheet("""
@@ -41,7 +45,7 @@ class TaskWidget(QFrame):
 
         self.check = QPushButton()
         self.check.setObjectName('btn')
-        if self.checked:
+        if self.checked == 1:
             self.check.setIcon(QIcon('icons/checked.svg'))
         else:
             self.check.setIcon(QIcon('icons/unchecked.svg'))
@@ -52,10 +56,31 @@ class TaskWidget(QFrame):
     def mousePressEvent(self, a0: QMouseEvent) -> None:
         if a0.button() == Qt.MouseButton.LeftButton:
             self.clicked()
+        if a0.button() == Qt.MouseButton.RightButton:
+            menu = QMenu()
+            delete = QAction('Delete')
+            delete.triggered.connect(self.delete_word)
+            menu.addAction(delete)
+            menu.exec(QPoint(int(a0.globalPosition().x()), int(a0.globalPosition().y())))
 
     def clicked(self):
-        self.checked = not self.checked
-        if self.checked:
+        # swap the int as a switch (0,1)
+        if self.checked == 1:
+            self.checked = 0
+        else:
+            self.checked = 1
+
+        if self.checked == 1:
             self.check.setIcon(QIcon('icons/checked.svg'))
         else:
             self.check.setIcon(QIcon('icons/unchecked.svg'))
+
+        import db
+        db.cursor.execute('UPDATE TASKS SET CHECKED = ? WHERE ID = ?', (self.checked, str(self.id)))
+        db.cursor.commit()
+
+    def delete_word(self):
+        import db
+        db.cursor.execute('DELETE FROM TASKS WHERE ID = ' + str(self.id))
+        db.cursor.commit()
+        self.deleted.emit()

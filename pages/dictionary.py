@@ -3,6 +3,7 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 from widgets.word import WordWidget
+import controllers.auth as Auth
 
 
 class DictionaryPage(QWidget):
@@ -48,7 +49,7 @@ class DictionaryPage(QWidget):
         for i in reversed(range(self.grid_layout.count())):
             self.grid_layout.itemAt(i).widget().deleteLater()
 
-        result = db.cursor.execute('SELECT * FROM DICTIONARY')
+        result = db.cursor.execute('SELECT * FROM DICTIONARY WHERE USER_ID = ?', (Auth.user[0],))
         for index, item in enumerate(result):
             r = (index // 2)
             c = 0 if (index % 2 == 0) else 1
@@ -62,7 +63,7 @@ class DictionaryPage(QWidget):
         d.exec()
 
     def word_added(self, word, difficulty):
-        db.cursor.execute("INSERT INTO DICTIONARY (WORD, DIFFICULTY) VALUES (?, ?)", (word, difficulty))
+        db.cursor.execute("INSERT INTO DICTIONARY (WORD, DIFFICULTY, USER_ID) VALUES (?, ?, ?)", (word, difficulty, Auth.user[0]))
         db.cursor.commit()
         self.load_grid()
 

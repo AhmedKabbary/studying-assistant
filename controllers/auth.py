@@ -44,7 +44,7 @@ def register(pic: str, name: str, email: str, phone: str, password: str, passwor
         (IS_ADMIN, PICTURE, NAME, EMAIL, PHONE, PASSWORD, PERMISSIONS)
         VALUES
         (?, ?, ?, ?, ?, ?, ?)
-    """, (True if is_first_time() else False, pic, name, email, phone, password, "T,P,C,D,A,G"))
+    """, (1 if is_first_time() else 0, pic, name, email, phone, password, "T,P,C,D,A,G"))
     _db.cursor.commit()
 
 

@@ -19,6 +19,7 @@ class WordWidget(QFrame):
                 background-color: #393E46;
             }
         """)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
         layout = QHBoxLayout(self)
         layout.setSpacing(15)
